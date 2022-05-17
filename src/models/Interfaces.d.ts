@@ -20,7 +20,7 @@ interface IBootcamp {
 	description: string
 	price: number
 	coach: typeof ObjectId
-	students?: typeof ObjectId[]
+	students: typeof ObjectId[]
 	lectures?: ILecture[]
 	img?: string
 	created_at?: Date
@@ -29,7 +29,7 @@ interface IBootcamp {
 interface IStudent {
 	name: string
 	email: string
-	bootcamps?: typeof ObjectId[]
+	bootcamps: typeof ObjectId[]
 	created_at?: Date
 }
 
