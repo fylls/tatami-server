@@ -10,13 +10,10 @@ if (!URI) console.log("URI is missing")
 
 // opening
 const connectDB = async () => await mongoose.connect(URI)
-const DB_NAME = URI.substring(URI.lastIndexOf("/") + 1, URI.lastIndexOf("?"))
 
 // closing
 const shoutDownDB = async () => {
-	mongoose.connection.close(() =>
-		console.log(`closing connection with: ${DB_NAME} `)
-	)
+	mongoose.connection.close(() => console.log(`closing connection with DB `))
 }
 
-export { connectDB, shoutDownDB, DB_NAME }
+export { connectDB, shoutDownDB }

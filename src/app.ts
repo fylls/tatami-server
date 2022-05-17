@@ -1,5 +1,5 @@
 import express, { Application, Request, Response, json } from "express"
-import { connectDB, DB_NAME } from "./db"
+import { connectDB } from "./db"
 import stripeRoute from "./routes/stripe"
 import dotenv from "dotenv"
 import cors from "cors"
@@ -24,10 +24,10 @@ const PORT = process.env.PORT || 3000
 const startServer = async () => {
 	try {
 		await connectDB()
-		console.log(`successfully connected to DATABASE: ${DB_NAME}`)
+		console.log(`successfully connected to DATABASE`)
 		app.listen(PORT, () => console.log(`Server started on PORT: ${PORT}`))
 	} catch (err) {
-		console.log(`Unable to connect with Database: ${err}`)
+		console.log(`Unable to connect with DATABASE: ${err}`)
 		startServer()
 	}
 }
