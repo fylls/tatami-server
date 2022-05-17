@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import Customer from "../models/Customer"
+import Customer from "../models/Students"
 import Bootcamp from "../models/Bootcamp"
 import Stripe from "stripe"
 
