@@ -5,8 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "nodemon src/app.ts",
-		"start": "ts-node dist/app.js",
-		"build": "tsc -p ."
+		"start": "node dist/app.js",
+		"build": "tsc -p .",
+		"zip": "tsc -p . && cd .. && zip -r tatami-server/output.zip tatami-server -x \"tatami-server/src/*\" \"tatami-server/node_modules/*\""
 	},
 	"author": "philly joe",
 	"license": "WTFPL",
