@@ -21,7 +21,7 @@ const cohortSchema = new Schema<ICohort>(
 		mainTeacher: { type: ObjectId, ref: "teachers" },
 		students: [{ type: ObjectId, ref: "students" }],
 		lectures: [{ type: lectureSchema, required: true }],
-		created_at: { type: Date, default: Date.now },
+		created_at: { type: Date, default: Date.now() },
 	},
 	{ versionKey: false }
 )

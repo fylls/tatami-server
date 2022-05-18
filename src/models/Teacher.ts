@@ -13,7 +13,7 @@ const coachSchema = new Schema<ITeacher>(
 		youtube: String,
 		twitch: String,
 		img: String,
-		created_at: { type: Date, default: Date.now },
+		created_at: { type: Date, default: Date.now() },
 	},
 	{ versionKey: false }
 )

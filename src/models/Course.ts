@@ -24,7 +24,7 @@ const courseSchema = new Schema<ICourse>(
 		info: [{ type: lectureInfoSchema, required: true }],
 		thumbnail: String,
 		img: String,
-		created_at: { type: Date, default: Date.now },
+		created_at: { type: Date, default: Date.now() },
 	},
 	{ versionKey: false }
 )

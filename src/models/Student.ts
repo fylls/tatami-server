@@ -8,7 +8,7 @@ const statusSchema = new Schema<IStatus>(
 	{
 		cohort: { type: ObjectId, ref: "courses" },
 		watched: [{ type: Number }],
-		updated_at: { type: Date, default: Date.now },
+		updated_at: { type: Date, default: Date.now() },
 	},
 	{ versionKey: false }
 )
@@ -17,9 +17,9 @@ const studentSchema = new Schema<IStudent>(
 	{
 		name: { type: String, required: true },
 		email: { type: String, required: true, unique: true },
-		refCode: { type: String, enum: referralArray },
+		referral: { type: String, enum: referralArray },
 		status: [{ type: statusSchema }],
-		created_at: { type: Date, default: Date.now },
+		created_at: { type: Date, default: Date.now() },
 	},
 	{ versionKey: false }
 )
