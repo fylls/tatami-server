@@ -1,0 +1,18 @@
+{
+	"_id": { "$oid": "62850ea5aea6ae0fc120f0c8" },
+	"game": "lol",
+	"slug": "complete-guide-lol",
+	"title": "The complete guide to League of Legends",
+	"description": "TODO",
+	"price": 4000,
+	"currentCohort": 1,
+	"cohorts": [],
+	"info": [
+		{
+			"title": "TODO",
+			"description": "TODO"
+		}
+	],
+	"img": "TODO",
+	"thumbnail": "TODO"
+}

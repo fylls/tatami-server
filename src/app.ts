@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, json } from "express"
-import { connectDB } from "./db"
 import stripeRoute from "./routes/stripe"
+import { connectDB } from "./db"
 import dotenv from "dotenv"
 import cors from "cors"
 

@@ -1,0 +1,16 @@
+{
+	"_id": { "$oid": "62851391aea6ae0fc120f0ca" },
+	"edition": 1,
+	"course": { "$oid": "62850ea5aea6ae0fc120f0c8" },
+	"mainTeacher": { "$oid": "62851068aea6ae0fc120f0c9" },
+	"students": [],
+	"lectures": [
+		{
+			"title": "TODO",
+			"description": "TODO",
+			"teacher": { "$oid": "62851068aea6ae0fc120f0c9" },
+			"liveStudents": [],
+			"when": "1652887949359"
+		}
+	]
+}
