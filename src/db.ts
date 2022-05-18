@@ -4,7 +4,6 @@ import dotenv from "dotenv"
 
 // environment
 dotenv.config()
-const NODE_ENV = process.env.NODE_ENV ?? ""
 const URI = process.env.MONGO_URI ?? ""
 if (!URI) console.log("URI is missing")
 

@@ -1,7 +1,9 @@
 import { Request, Response, Router } from "express"
-import Bootcamp from "../models/Bootcamp"
-import Stripe from "stripe"
 import Student from "../models/Student"
+import Course from "../models/Course"
+import Stripe from "stripe"
+
+// TODO fixa sto schifo
 
 // express router (app)
 const router = Router()
