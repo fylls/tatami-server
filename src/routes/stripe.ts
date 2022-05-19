@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express"
-import { referralArray, validateEmail, stringToId, MAX_VIRGINS } from "../utils"
+import { validateEmail, getAmount, BASE_COACH } from "../utils"
 import Student from "../models/Student"
+import Influencer from "../models/Influencer"
 import Course from "../models/Course"
 import Cohort from "../models/Cohort"
 import Stripe from "stripe"
@@ -17,13 +18,6 @@ export default router
 const SECRET_KEY = process.env.SECRET_KEY ?? ""
 if (!SECRET_KEY) console.log("stripe key is missing")
 const stripe = new Stripe(SECRET_KEY, { apiVersion: "2020-08-27" })
-
-//TODO in base al corso e la percentuale di referral del codice decide il prezzo
-// if cost less if you have a referral code
-const getAmount = (referral: string): number => {
-	if (referralArray.includes(referral)) return 4000
-	else return 5000
-}
 
 /**
  *
@@ -51,7 +45,7 @@ router.post("/course", async (req: Request, res: Response) => {
 
 		// if user is not found: create e new one
 		if (!user) {
-			const newUser = new Student({ name, email, referral, status: [] })
+			const newUser = new Student({ name, email, info: [] })
 			await newUser.save()
 		}
 
@@ -67,7 +61,7 @@ router.post("/course", async (req: Request, res: Response) => {
 			const paymentIntent = await stripe.paymentIntents.create({
 				customer: user.id,
 				receipt_email: email,
-				amount: getAmount(referral),
+				amount: await getAmount(course.basePrice, referral),
 				currency: "eur",
 				automatic_payment_methods: { enabled: true },
 			})
@@ -89,7 +83,7 @@ router.post("/course", async (req: Request, res: Response) => {
 				const newCohort = new Cohort({
 					edition: 1,
 					course: course.id,
-					mainTeacher: stringToId("62851068aea6ae0fc120f0c9"), //TODO this has to be made dynamic
+					mainTeacher: BASE_COACH, //TODO this has to be made dynamic
 					students: [user.id],
 					lectures: [],
 				})
@@ -115,7 +109,7 @@ router.post("/course", async (req: Request, res: Response) => {
 				const newCohort = new Cohort({
 					edition: course.currentCohort + 1,
 					course: course.id,
-					mainTeacher: stringToId("62851068aea6ae0fc120f0c9"),
+					mainTeacher: BASE_COACH, //TODO this has to be made dynamic
 					students: [user.id],
 					lectures: [],
 				})
@@ -158,28 +152,32 @@ router.post("/course", async (req: Request, res: Response) => {
 			// update last_cohort_id
 			last_cohort_id = course.cohorts[course.cohorts.length - 1]
 
-			// status object
-			const statusObj = {
+			// info object
+			const infoObj = {
 				cohort: last_cohort_id,
+				referral: referral,
 				watched: [],
 				updated_at: new Date(),
 			}
 
-			// check duplicate and add status to student
-			if (user.status?.length !== 0) {
-				const index = user.status
-					.map(item => item.cohort.valueOf())
-					.indexOf(last_cohort_id)
+			// check duplicate and add info to student
+			const index = user.info
+				.map(x => x.cohort.valueOf())
+				.indexOf(last_cohort_id)
+			if (!index) user.info.push(infoObj)
 
-				if (!index) user.status.push(statusObj)
-
-				// save student in DB
-				await user.save()
-			}
-
-			// if student has no status, add it
-			user.status.push(statusObj)
+			// save student in DB
 			await user.save()
+
+			// find influencer (has to exist since it has been checked before)
+			const i = await Influencer.findOne({ code: referral })
+
+			// update influencer, check for duplicate
+			if (i && !i.students.includes(user.id)) {
+				i.students.push(user.id)
+				i.amountOwed = i.amountOwed + course.basePrice * i.cut
+				await i.save()
+			}
 
 			res.send({ clientSecret: paymentIntent.client_secret })
 		}

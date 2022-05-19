@@ -15,7 +15,7 @@ const lectureInfoSchema = new Schema<ILectureInfo>(
 const courseSchema = new Schema<ICourse>(
 	{
 		slug: { type: String, required: true, unique: true },
-		game: { type: String, enum: gameArray },
+		game: { type: String, required: true, enum: gameArray },
 		title: { type: String, required: true },
 		description: { type: String, required: true },
 		basePrice: { type: Number, default: 4000 },

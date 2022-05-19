@@ -22,8 +22,9 @@ interface ITeacher {
 /*=========================================*/
 // DB: students
 
-interface IStatus {
+interface IStudentInfo {
 	cohort: typeof ObjectId
+	referral: string
 	watched: number[]
 	updated_at: Date
 }
@@ -31,8 +32,7 @@ interface IStatus {
 interface IStudent {
 	name: string
 	email: string
-	referral: string
-	status: IStatus[]
+	info: IStudentInfo[]
 	created_at?: Date
 }
 
@@ -80,29 +80,31 @@ interface ICohort {
 //TODO  define relationship between cohort and course
 
 /*=========================================*/
-// DB: referral
-
-interface IInfluencerStatus {
-	course: typeof ObjectId
-	students: typeof ObjectId[]
-}
+// DB: influencers
 
 interface IInfluencer {
 	name: string
+	email: string
+	type: string
 	code: string
-	percentage: number
-	status: IInfluencerStatus[]
+	cut: number // on the revenues of the single student
+	discount: number // on the total price
+	paymentMethod: string
+	students: typeof ObjectId[]
+	upfrontCost: number
+	amountOwed: number
 	created_at?: Date
 }
 
+/*=========================================*/
+
 export {
 	ITeacher,
-	IStatus,
+	IStudentInfo,
 	IStudent,
 	ILectureInfo,
 	ICourse,
 	ILecture,
 	ICohort,
 	IInfluencer,
-	IInfluencerStatus,
 }

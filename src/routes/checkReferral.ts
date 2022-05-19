@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { referralArray } from "../utils"
+import Influencer from "../models/Influencer"
 
 // express router
 const router = Router()
@@ -21,9 +21,9 @@ router.get("/checkReferral/:refCode", async (req: Request, res: Response) => {
 	// check if req.body is present
 	if (!code) return res.status(400).json("referral code is missing")
 
-	// check ig course exists
-	const isValid = referralArray.includes(code)
+	// check if course exists
+	const isValid = await Influencer.findOne({ code })
 
-	if (isValid) return res.send({ result: true })
-	else res.send({ result: false })
+	// return if valid
+	return isValid ? res.send(true) : res.send(false)
 })
