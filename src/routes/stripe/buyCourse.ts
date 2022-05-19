@@ -1,34 +1,32 @@
 import { Request, Response, Router } from "express"
-import { validateEmail, getAmount, BASE_COACH } from "../utils"
-import Student from "../models/Student"
-import Influencer from "../models/Influencer"
-import Course from "../models/Course"
-import Cohort from "../models/Cohort"
+import { validateEmail, getAmount, BASE_COACH } from "../../utils"
+import Student from "../../models/Student"
+import Influencer from "../../models/Influencer"
+import Course from "../../models/Course"
+import Cohort from "../../models/Cohort"
 import Stripe from "stripe"
 import dotenv from "dotenv"
-
-// environment
-dotenv.config()
 
 // express router
 const router = Router()
 export default router
 
 // stripe
+dotenv.config()
 const SECRET_KEY = process.env.SECRET_KEY ?? ""
 if (!SECRET_KEY) console.log("stripe key is missing")
 const stripe = new Stripe(SECRET_KEY, { apiVersion: "2020-08-27" })
 
 /**
  *
- * @route       POST api.tatami/stripe/course
+ * @route       POST api.tatami/stripe/buyCourse
  * @desc        handles payment in backend and saves
  * @access      public
  * @body        { referral, name, email, course_id }
  *
  */
 
-router.post("/course", async (req: Request, res: Response) => {
+router.post("/buyCourse", async (req: Request, res: Response) => {
 	const { referral, name, email, course_id } = req.body
 
 	// check if req.body is present

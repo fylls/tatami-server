@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { getDiscount } from "../utils"
+import { getDiscount } from "../../utils"
 
 // express router
 const router = Router()
@@ -7,20 +7,20 @@ export default router
 
 /**
  *
- * @route       GET api.tatami/utils/discount/:refCode
+ * @route       GET api.tatami/utils/getDiscount/:refCode
  * @desc        get discount amount from referral code
  * @access      public
  * @params      refCode
  *
  */
 
-router.get("/discount/:refCode", async (req: Request, res: Response) => {
+router.get("/getDiscount/:refCode", async (req: Request, res: Response) => {
 	// extract parameters
 	const code = req.params.refCode
 
 	// check if req.body is present
 	if (!code) return res.status(400).json("referral code is missing")
 
-	// implementation on ./utils
+	// implementation on /utils
 	return res.send(await getDiscount(code))
 })

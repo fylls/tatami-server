@@ -17,13 +17,15 @@ app.use(json())
 app.get("/", (req: Request, res: Response) => res.send("Tatami API endpoint"))
 
 // routes
-import stripeRoute from "./routes/stripe"
-import checkReferralRoute from "./routes/checkReferral"
-import getStudentPerCourseRoute from "./routes/studentsPerCourse"
+import buyCourseRoute from "./routes/stripe/buyCourse"
+import checkReferralRoute from "./routes/utils/checkReferral"
+import getDiscountRoute from "./routes/utils/studentsPerCourse"
+import getStudentPerCourseRoute from "./routes/utils/studentsPerCourse"
 
 // routes implemented
-app.use("/stripe", stripeRoute)
+app.use("/stripe", buyCourseRoute)
 app.use("/utils", checkReferralRoute)
+app.use("/utils", getDiscountRoute)
 app.use("/utils", getStudentPerCourseRoute)
 
 // listening

@@ -13,7 +13,7 @@ const validateEmail = (email: string): boolean => {
 }
 
 // if the referral code is still valid it returns true, otherwise it returns false
-const validateReferral = async (code: string): Promise<boolean> => {
+const checkReferral = async (code: string): Promise<boolean> => {
 	const isValid = await Influencer.findOne({ code }) // influencer object
 	return isValid ? true : false
 }
@@ -65,7 +65,7 @@ const influencerArray = [
 export {
 	validateEmail,
 	stringToId,
-	validateReferral,
+	checkReferral,
 	getDiscount,
 	getAmount,
 	MAX_VIRGINS,
