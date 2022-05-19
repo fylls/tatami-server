@@ -49,7 +49,7 @@ interface ICourse {
 	title: string
 	game: string
 	description: string
-	price: number
+	basePrice: number
 	currentCohort: number
 	cohorts: typeof ObjectId[]
 	students: typeof ObjectId[]
@@ -80,6 +80,29 @@ interface ICohort {
 //TODO  define relationship between cohort and course
 
 /*=========================================*/
-// DB: cohorts
+// DB: referral
 
-export { ITeacher, IStatus, IStudent, ILectureInfo, ICourse, ILecture, ICohort }
+interface IInfluencerStatus {
+	course: typeof ObjectId
+	students: typeof ObjectId[]
+}
+
+interface IInfluencer {
+	name: string
+	code: string
+	percentage: number
+	status: IInfluencerStatus[]
+	created_at?: Date
+}
+
+export {
+	ITeacher,
+	IStatus,
+	IStudent,
+	ILectureInfo,
+	ICourse,
+	ILecture,
+	ICohort,
+	IInfluencer,
+	IInfluencerStatus,
+}

@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 
 const MAX_VIRGINS = 20
 
+//TODO  put this in DB
 const referralArray = [
 	"taverna",
 	"influencer1",

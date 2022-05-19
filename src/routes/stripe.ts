@@ -11,20 +11,30 @@ dotenv.config()
 
 // express router
 const router = Router()
+export default router
 
 // stripe
 const SECRET_KEY = process.env.SECRET_KEY ?? ""
 if (!SECRET_KEY) console.log("stripe key is missing")
 const stripe = new Stripe(SECRET_KEY, { apiVersion: "2020-08-27" })
 
+//TODO in base al corso e la percentuale di referral del codice decide il prezzo
 // if cost less if you have a referral code
 const getAmount = (referral: string): number => {
 	if (referralArray.includes(referral)) return 4000
 	else return 5000
 }
 
-// pay me gamer
-router.post("/", async (req: Request, res: Response) => {
+/**
+ *
+ * @route       POST api.tatami/stripe/course
+ * @desc        handles payment in backend and saves
+ * @access      public
+ * @body        { referral, name, email, course_id }
+ *
+ */
+
+router.post("/course", async (req: Request, res: Response) => {
 	const { referral, name, email, course_id } = req.body
 
 	// check if req.body is present
@@ -177,5 +187,3 @@ router.post("/", async (req: Request, res: Response) => {
 		console.log(err)
 	}
 })
-
-export default router

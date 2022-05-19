@@ -2,6 +2,8 @@
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 
+//TODO figure a way to put ONLY one dotenv, create a file with all the constants
+
 // environment
 dotenv.config()
 const URI = process.env.MONGO_URI ?? ""

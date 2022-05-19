@@ -1,24 +1,32 @@
+// dependencies
 import express, { Application, Request, Response, json } from "express"
-import stripeRoute from "./routes/stripe"
 import { connectDB } from "./db"
 import dotenv from "dotenv"
 import cors from "cors"
 
+// init server
 const app: Application = express()
+const PORT = process.env.PORT || 3000
 
 // server configs
 dotenv.config()
 app.use(cors())
 app.use(json())
 
-// home
+// home route
 app.get("/", (req: Request, res: Response) => res.send("Tatami API endpoint"))
 
-// stripe
+// routes
+import stripeRoute from "./routes/stripe"
+import checkReferralRoute from "./routes/checkReferral"
+import getStudentPerCourseRoute from "./routes/studentsPerCourse"
+
+// routes implemented
 app.use("/stripe", stripeRoute)
+app.use("/utils", checkReferralRoute)
+app.use("/utils", getStudentPerCourseRoute)
 
-const PORT = process.env.PORT || 3000
-
+// listening
 const startServer = async () => {
 	try {
 		await connectDB()

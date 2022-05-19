@@ -18,7 +18,7 @@ const courseSchema = new Schema<ICourse>(
 		game: { type: String, enum: gameArray },
 		title: { type: String, required: true },
 		description: { type: String, required: true },
-		price: { type: Number, default: 4000 },
+		basePrice: { type: Number, default: 4000 },
 		currentCohort: { type: Number },
 		cohorts: [{ type: ObjectId, ref: "cohorts" }],
 		students: [{ type: ObjectId, ref: "students" }],
