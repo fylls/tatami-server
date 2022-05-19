@@ -11,7 +11,7 @@ const lectureSchema = new Schema<ILecture>(
 		liveStudents: [{ type: ObjectId, ref: "students" }],
 		when: { type: Date, required: true },
 	},
-	{ versionKey: false }
+	{ versionKey: false, timestamps: true }
 )
 
 const cohortSchema = new Schema<ICohort>(
@@ -21,9 +21,8 @@ const cohortSchema = new Schema<ICohort>(
 		mainTeacher: { type: ObjectId, ref: "teachers" },
 		students: [{ type: ObjectId, ref: "students" }],
 		lectures: [{ type: lectureSchema, required: true }],
-		created_at: { type: Date, default: Date.now() },
 	},
-	{ versionKey: false }
+	{ versionKey: false, timestamps: true }
 )
 
 export = model<ICohort>("cohorts", cohortSchema)

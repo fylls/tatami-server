@@ -13,9 +13,8 @@ const coachSchema = new Schema<ITeacher>(
 		youtube: String,
 		twitch: String,
 		img: String,
-		created_at: { type: Date, default: Date.now() },
 	},
-	{ versionKey: false }
+	{ versionKey: false,  timestamps: true}
 )
 
 export = model<ITeacher>("teachers", coachSchema)

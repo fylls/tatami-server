@@ -1,3 +1,7 @@
+import mongoose from "mongoose"
+
+const MAX_VIRGINS = 20
+
 const referralArray = [
 	"taverna",
 	"influencer1",
@@ -21,4 +25,15 @@ const gameArray = [
 	"sc2",
 ]
 
-export { gameArray, referralArray }
+function stringToId(str: string): any {
+	const id = new mongoose.Types.ObjectId(str)
+	return id
+}
+
+function validateEmail(email: string): boolean {
+	let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+	if (email.match(re)) return true
+	else return false
+}
+
+export { gameArray, referralArray, validateEmail, stringToId, MAX_VIRGINS }

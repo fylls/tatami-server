@@ -1,5 +1,5 @@
-import { Schema } from "mongoose"
-const ObjectId = Schema.Types.ObjectId
+import mongoose from "mongoose"
+const ObjectId = mongoose.Types.ObjectId
 
 /*=========================================*/
 // DB: teachers
@@ -16,23 +16,23 @@ interface ITeacher {
 	created_at?: Date
 }
 
-// TODO add new coach info (inspiration from Typeform)
+// TODO add new coach info (inspiration from TypeForm)
 // languages, games, rank
 
 /*=========================================*/
 // DB: students
 
 interface IStatus {
-	cohort: typeof ObjectId[]
-	watched?: number[]
-	updated_at?: Date
+	cohort: typeof ObjectId
+	watched: number[]
+	updated_at: Date
 }
 
 interface IStudent {
 	name: string
 	email: string
-	refCode?: string
-	status?: IStatus[]
+	referral: string
+	status: IStatus[]
 	created_at?: Date
 }
 
@@ -52,6 +52,7 @@ interface ICourse {
 	price: number
 	currentCohort: number
 	cohorts: typeof ObjectId[]
+	students: typeof ObjectId[]
 	info?: ILectureInfo[]
 	img?: string
 	thumbnail: string
@@ -77,5 +78,8 @@ interface ICohort {
 }
 
 //TODO  define relationship between cohort and course
+
+/*=========================================*/
+// DB: cohorts
 
 export { ITeacher, IStatus, IStudent, ILectureInfo, ICourse, ILecture, ICohort }

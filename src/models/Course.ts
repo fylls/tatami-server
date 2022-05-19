@@ -9,7 +9,7 @@ const lectureInfoSchema = new Schema<ILectureInfo>(
 		title: { type: String, required: true },
 		description: { type: String, required: true },
 	},
-	{ versionKey: false }
+	{ versionKey: false, timestamps: true }
 )
 
 const courseSchema = new Schema<ICourse>(
@@ -21,12 +21,12 @@ const courseSchema = new Schema<ICourse>(
 		price: { type: Number, default: 4000 },
 		currentCohort: { type: Number },
 		cohorts: [{ type: ObjectId, ref: "cohorts" }],
+		students: [{ type: ObjectId, ref: "students" }],
 		info: [{ type: lectureInfoSchema, required: true }],
 		thumbnail: String,
 		img: String,
-		created_at: { type: Date, default: Date.now() },
 	},
-	{ versionKey: false }
+	{ versionKey: false, timestamps: true }
 )
 
 export = model<ICourse>("courses", courseSchema)
@@ -46,7 +46,12 @@ b = {
 	cohorts: [
 		"0x227b4ii9s793339018",
 		"0xf44b88sss795539031",
-		"0Kxf44bfJJss79KKsK22",
+		"0xxf44bfJJss79KKsK22",
+	],
+    students: [
+		"st227b4ii9s793339018",
+		"stf44b88sss795539031",
+		"sta344bfJJss79KKsK22",
 	],
 	info: [
 		{
