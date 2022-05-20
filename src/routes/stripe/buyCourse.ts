@@ -30,7 +30,7 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 	const { referral, name, email, course_id } = req.body
 
 	// check if req.body is present
-	if (!(name & email & course_id))
+	if (!(name && email && course_id))
 		return res.status(400).json("name, email or course_id is missing")
 
 	// validate email format
