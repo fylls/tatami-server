@@ -19,7 +19,7 @@ const stripe = new Stripe(SECRET_KEY, { apiVersion: "2020-08-27" })
 
 /**
  *
- * @route       POST api.tatami/stripe/buyCourse
+ * @route       POST api.tatami.gg/stripe/buyCourse
  * @desc        handles payment in backend and saves
  * @access      public
  * @body        { referral, name, email, course_id }

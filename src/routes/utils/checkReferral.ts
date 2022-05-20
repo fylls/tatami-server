@@ -7,7 +7,7 @@ export default router
 
 /**
  *
- * @route       GET api.tatami/utils/checkReferral/:refCode
+ * @route       GET api.tatami.gg/utils/checkReferral/:refCode
  * @desc        if the referral code is still valid it returns true, otherwise it returns false
  * @access      public
  * @params      refCode

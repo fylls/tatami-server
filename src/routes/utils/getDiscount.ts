@@ -7,7 +7,7 @@ export default router
 
 /**
  *
- * @route       GET api.tatami/utils/getDiscount/:refCode
+ * @route       GET api.tatami.gg/utils/getDiscount/:refCode
  * @desc        get discount amount from referral code
  * @access      public
  * @params      refCode

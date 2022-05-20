@@ -7,7 +7,7 @@ export default router
 
 /**
  *
- * @route       GET api.tatami/utils/students/:courseID
+ * @route       GET api.tatami.gg/utils/students/:courseID
  * @desc        return how many students a course has given its ID
  * @access      public
  * @params      courseID
