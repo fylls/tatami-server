@@ -9,11 +9,13 @@ import { Student, Course, Influencer, Cohort } from "../../models/_database"
 const router = Router()
 export default router
 
+// TODO in production se uso chiavi test scrivio e non aggiungere persone al back
+
 // stripe
 dotenv.config()
-const SECRET_KEY = process.env.SECRET_KEY ?? ""
-if (!SECRET_KEY) console.log("stripe key is missing")
-const stripe = new Stripe(SECRET_KEY, { apiVersion: "2020-08-27" })
+const TEST_KEY = process.env.TEST_KEY ?? ""
+if (!TEST_KEY) console.log("stripe key is missing")
+const stripe = new Stripe(TEST_KEY, { apiVersion: "2020-08-27" })
 
 /**
  *
@@ -63,8 +65,10 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 		if (user && course) {
 			// stripe handles the payment
 			// code from https://cutt.ly/stripedocs
+
 			try {
 				let intent
+				console.log("inizio intent")
 
 				const customer = await stripe.customers.create({
 					description: user.id,
@@ -77,7 +81,6 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 						customer: customer.id,
 						payment_method: payment_method_id,
 						amount: await getAmount(course.basePrice, referral),
-						automatic_payment_methods: { enabled: true },
 						receipt_email: user.email,
 						currency: "eur",
 						confirmation_method: "manual",
@@ -88,6 +91,7 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 						payment_intent_id
 					)
 				}
+				console.log("fine intent")
 
 				const isPaid = stripeResponse(intent)
 
@@ -95,6 +99,8 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 					/*========================================================================================*/
 					// the following code executes IF & ONLY IF the payment goes through
 					/*========================================================================================*/
+
+					console.log("inizio business logic")
 
 					// searching for last cohort
 					let last_cohort_id =
@@ -205,12 +211,15 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 						i.amountOwed = i.amountOwed + course.basePrice * i.cut
 						await i.save()
 					}
+					console.log("fine business logic")
 				}
 
+				console.log("ritorno api")
 				// return stripe confirmation to client
-				return res.send(stripeResponse(intent))
-			} catch (e: any) {
-				return res.send({ error: e.message })
+				return res.send(isPaid)
+			} catch (err: any) {
+				console.log(err.message)
+				return res.send({ error: err.message })
 			}
 		}
 	} catch (err) {

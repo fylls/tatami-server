@@ -26,5 +26,5 @@ router.get("/students/:courseID", async (req: Request, res: Response) => {
 	if (!course) return res.status(404).json("course not found")
 
 	// return how many user are in course
-	return course.students.length
+	return res.json(course.students.length)
 })

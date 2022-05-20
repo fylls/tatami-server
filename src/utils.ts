@@ -12,7 +12,7 @@ const stringToId = (str: string): mongoose.Types.ObjectId => {
 
 // make sure emails string is formatted correctly
 const checkMail = (email: string): boolean => {
-	let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+	let re = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/
 	return email.match(re) ? true : false
 }
 
@@ -33,7 +33,7 @@ const getDiscount = async (code: string): Promise<number> => {
 const getAmount = async (cost: number, code: string): Promise<number> => {
 	const discount = await getDiscount(code)
 	if (discount === 0) return cost
-	else return cost - cost * discount
+	else return Math.round(cost * (1 - discount))
 }
 
 // used by stripe

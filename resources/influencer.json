@@ -1,6 +1,6 @@
 {
 	"_id": { "$oid": "62879e3664e63a9c5da28643" },
-	"edition": "tatami",
+	"name": "tatami",
 	"email": "team@tatami.gg",
 	"type": "tatami",
 	"code": "TATAMI20",

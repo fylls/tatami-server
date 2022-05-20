@@ -22,5 +22,5 @@ router.get("/getDiscount/:refCode", async (req: Request, res: Response) => {
 	if (!code) return res.status(400).json("referral code is missing")
 
 	// implementation on /utils
-	return res.send(await getDiscount(code))
+	return res.json(await getDiscount(code))
 })

@@ -19,7 +19,7 @@ app.get("/", (req: Request, res: Response) => res.send("Tatami API endpoint"))
 // routes
 import buyCourseRoute from "./routes/stripe/buyCourse"
 import checkReferralRoute from "./routes/utils/checkReferral"
-import getDiscountRoute from "./routes/utils/studentsPerCourse"
+import getDiscountRoute from "./routes/utils/getDiscount"
 import getStudentPerCourseRoute from "./routes/utils/studentsPerCourse"
 import getAllCoursesRoute from "./routes/courses/getAll"
 import getOneCourseRoute from "./routes/courses/getOne"
@@ -41,7 +41,7 @@ const startServer = async () => {
 	try {
 		await connectDB()
 		app.listen(PORT, () => console.log(`Server started on PORT: ${PORT}`))
-	} catch (err) {
+	} catch (err: any) {
 		console.log(`Unable to connect with DATABASE: ${err}`)
 	}
 }

@@ -22,5 +22,5 @@ router.get("/checkReferral/:refCode", async (req: Request, res: Response) => {
 	if (!code) return res.status(400).json("referral code is missing")
 
 	// implementation on /utils
-	return res.send(await checkReferral(code))
+	return res.json(await checkReferral(code))
 })
