@@ -1,6 +1,10 @@
 import mongoose from "mongoose"
 import { Influencer } from "./models/_database"
 
+const objEqual = (x: any, y: any): boolean => {
+	return JSON.stringify(x) === JSON.stringify(y)
+}
+
 // translate string to mongodb "ObjectId" type
 const stringToId = (str: string): mongoose.Types.ObjectId => {
 	return new mongoose.Types.ObjectId(str)
@@ -48,6 +52,7 @@ const stripeResponse = (intent: any): any => {
 }
 
 export {
+	objEqual,
 	checkMail,
 	stringToId,
 	checkReferral,

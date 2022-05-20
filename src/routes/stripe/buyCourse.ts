@@ -2,8 +2,8 @@ import Stripe from "stripe"
 import dotenv from "dotenv"
 import { Request, Response, Router } from "express"
 import { Student, Course, Influencer, Cohort } from "../../models/_database"
-import { stripeResponse, checkMail, getAmount } from "../../utils"
-import { BASE_COACH } from "../../const" //TODO to remove
+import { stripeResponse, checkMail, getAmount, objEqual } from "../../utils"
+import { BASE_COACH } from "../../consts" //TODO to remove
 
 // express router
 const router = Router()
@@ -36,7 +36,7 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 
 	// check if req.body is present
 	// referral is optional and does not create problem if wrong
-	if (!(name && email && courseID && payment_method_id && payment_intent_id))
+	if (!(name && email && courseID))
 		return res.status(400).json("missing parameters")
 
 	// validate email format
@@ -89,117 +89,122 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 					)
 				}
 
-				/*========================================================================================*/
-				// the following code executes IF & ONLY IF the payment goes through
-				/*========================================================================================*/
+				const isPaid = stripeResponse(intent)
 
-				// searching for last cohort
-				let last_cohort_id = course.cohorts[course.cohorts.length - 1]
-				let last_cohort = await Cohort.findById(last_cohort_id)
+				if (!isPaid.error) {
+					/*========================================================================================*/
+					// the following code executes IF & ONLY IF the payment goes through
+					/*========================================================================================*/
 
-				// check number of students in course
-				const numberOfStudents = course.students.length
+					// searching for last cohort
+					let last_cohort_id =
+						course.cohorts[course.cohorts.length - 1]
+					let last_cohort = await Cohort.findById(last_cohort_id)
 
-				// this code will execute if there is no cohort (E.G. first person that pays on website)
-				if (!last_cohort) {
-					// new cohort object
-					const newCohort = new Cohort({
-						edition: 1,
-						course: course.id,
-						mainTeacher: BASE_COACH, //TODO this has to be made dynamic
-						students: [user.id],
-						lectures: [],
-					})
+					// check number of students in course
+					const numberOfStudents = course.students.length
 
-					// save cohort in DB
-					await newCohort.save()
+					// this code will execute if there is no cohort (E.G. first person that pays on website)
+					if (!last_cohort) {
+						// new cohort object
+						const newCohort = new Cohort({
+							edition: 1,
+							course: course.id,
+							mainTeacher: BASE_COACH, //TODO this has to be made dynamic
+							students: [user.id],
+							lectures: [],
+						})
 
-					// check duplicate and add cohort
-					if (!course.cohorts.includes(newCohort.id))
-						course.cohorts.push(newCohort.id)
+						// save cohort in DB
+						await newCohort.save()
 
-					// check duplicates and add students
-					if (!course.students.includes(user.id))
-						course.students.push(user.id)
+						// check duplicate and add cohort
+						if (!course.cohorts.includes(newCohort.id))
+							course.cohorts.push(newCohort.id)
 
-					// save course in DB
-					await course.save()
-				}
+						// check duplicates and add students
+						if (!course.students.includes(user.id))
+							course.students.push(user.id)
 
-				// if too many students: create a new cohort
-				if (last_cohort && numberOfStudents % 20 === 0) {
-					// new cohort object
-					const newCohort = new Cohort({
-						edition: course.currentCohort + 1,
-						course: course.id,
-						mainTeacher: BASE_COACH, //TODO this has to be made dynamic
-						students: [user.id],
-						lectures: [],
-					})
+						// save course in DB
+						await course.save()
+					}
 
-					// save cohort in DB
-					await newCohort.save()
+					// if too many students: create a new cohort
+					if (last_cohort && numberOfStudents % 20 === 0) {
+						// new cohort object
+						const newCohort = new Cohort({
+							edition: course.currentCohort + 1,
+							course: course.id,
+							mainTeacher: BASE_COACH, //TODO this has to be made dynamic
+							students: [user.id],
+							lectures: [],
+						})
 
-					// check duplicate and add cohort
-					if (!course.cohorts.includes(newCohort.id))
-						course.cohorts.push(newCohort.id)
+						// save cohort in DB
+						await newCohort.save()
 
-					// check duplicates and add students
-					if (!course.students.includes(user.id))
-						course.students.push(user.id)
+						// check duplicate and add cohort
+						if (!course.cohorts.includes(newCohort.id))
+							course.cohorts.push(newCohort.id)
 
-					// update current cohort number
-					course.currentCohort = course.currentCohort + 1
+						// check duplicates and add students
+						if (!course.students.includes(user.id))
+							course.students.push(user.id)
 
-					// save course in DB
-					await course.save()
-				}
+						// update current cohort number
+						course.currentCohort = course.currentCohort + 1
 
-				// else : this cohort exist: you just need to add the student
-				if (last_cohort && numberOfStudents % 20 !== 0) {
-					// check duplicates and add student to cohort
-					if (!last_cohort.students.includes(user.id))
-						last_cohort.students.push(user.id)
+						// save course in DB
+						await course.save()
+					}
 
-					// save cohort in DB
-					await last_cohort.save()
+					// else : this cohort exist: you just need to add the student
+					if (last_cohort && numberOfStudents % 20 !== 0) {
+						// check duplicates and add student to cohort
+						if (!last_cohort.students.includes(user.id))
+							last_cohort.students.push(user.id)
 
-					// check duplicates and add student to course
-					if (!course.students.includes(user.id))
-						course.students.push(user.id)
+						// save cohort in DB
+						await last_cohort.save()
 
-					// save course in DB
-					await course.save()
-				}
+						// check duplicates and add student to course
+						if (!course.students.includes(user.id))
+							course.students.push(user.id)
 
-				// update last_cohort_id
-				last_cohort_id = course.cohorts[course.cohorts.length - 1]
+						// save course in DB
+						await course.save()
+					}
 
-				// info object
-				const infoObj = {
-					cohort: last_cohort_id,
-					referral: referral,
-					watched: [],
-					updated_at: new Date(),
-				}
+					// update last_cohort_id
+					last_cohort_id = course.cohorts[course.cohorts.length - 1]
 
-				// check duplicate and add info to student
-				const index = user.info
-					.map(x => x.cohort.valueOf())
-					.indexOf(last_cohort_id)
-				if (!index) user.info.push(infoObj)
+					// info object
+					const infoObj = {
+						cohort: last_cohort_id,
+						referral: referral,
+						watched: [],
+						updated_at: new Date(),
+					}
 
-				// save student in DB
-				await user.save()
+					// check duplicate and add info to student
+					const index = user.info
+						.map(x => x.cohort.valueOf())
+						.indexOf(last_cohort_id)
+					if (!index) user.info.push(infoObj)
 
-				// find influencer (has to exist since it has been checked before)
-				const i = await Influencer.findOne({ code: referral })
+					// save student in DB
+					await user.save()
 
-				// update influencer, check for duplicate
-				if (i && !i.students.includes(user.id)) {
-					i.students.push(user.id)
-					i.amountOwed = i.amountOwed + course.basePrice * i.cut
-					await i.save()
+					// find influencer (has to exist since it has been checked before)
+					const i = await Influencer.findOne({ code: referral })
+
+					// update influencer, check for duplicate
+					if (i && !i.students.includes(user.id)) {
+						i.students.push(user.id)
+						i.amountOwed = i.amountOwed + course.basePrice * i.cut
+						await i.save()
+					}
 				}
 
 				// return stripe confirmation to client
