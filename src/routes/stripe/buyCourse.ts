@@ -1,9 +1,9 @@
 import Stripe from "stripe"
 import dotenv from "dotenv"
-import { Request, Response, Router } from "express"
-import { Student, Course, Influencer, Cohort } from "../../models/_database"
-import { stripeResponse, checkMail, getAmount, objEqual } from "../../utils"
 import { BASE_COACH } from "../../consts" //TODO to remove
+import { Request, Response, Router } from "express"
+import { stripeResponse, checkMail, getAmount } from "../../utils"
+import { Student, Course, Influencer, Cohort } from "../../models/_database"
 
 // express router
 const router = Router()
