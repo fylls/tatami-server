@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose"
-import { IStudentInfo, IStudent } from "./_"
+import { IStudentInfo, IStudent } from "./_interfaces"
 
 const ObjectId = Schema.Types.ObjectId
 

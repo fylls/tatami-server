@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import Course from "../../models/Course"
+import { Course } from "../../models/_database"
 
 // express router
 const router = Router()

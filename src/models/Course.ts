@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose"
-import { ILectureInfo, ICourse } from "./_"
-import { gameArray } from "../utils"
+import { ILectureInfo, ICourse } from "./_interfaces"
+import { GAME_ARRAY } from "../const"
 
 const ObjectId = Schema.Types.ObjectId
 
@@ -15,7 +15,7 @@ const lectureInfoSchema = new Schema<ILectureInfo>(
 const courseSchema = new Schema<ICourse>(
 	{
 		slug: { type: String, required: true, unique: true },
-		game: { type: String, required: true, enum: gameArray },
+		game: { type: String, required: true, enum: GAME_ARRAY },
 		title: { type: String, required: true },
 		description: { type: String, required: true },
 		basePrice: { type: Number, default: 4000 },

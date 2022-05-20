@@ -21,12 +21,20 @@ import buyCourseRoute from "./routes/stripe/buyCourse"
 import checkReferralRoute from "./routes/utils/checkReferral"
 import getDiscountRoute from "./routes/utils/studentsPerCourse"
 import getStudentPerCourseRoute from "./routes/utils/studentsPerCourse"
+import getAllCoursesRoute from "./routes/courses/getAll"
+import getOneCourseRoute from "./routes/courses/getOne"
 
-// routes implemented
+// stripe routes
 app.use("/stripe", buyCourseRoute)
+
+// utils routes
 app.use("/utils", checkReferralRoute)
 app.use("/utils", getDiscountRoute)
 app.use("/utils", getStudentPerCourseRoute)
+
+// courses routes
+app.use("/courses", getAllCoursesRoute)
+app.use("/courses", getOneCourseRoute)
 
 // listening
 const startServer = async () => {

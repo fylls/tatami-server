@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose"
-import { ILecture, ICohort } from "./_"
+import { ILecture, ICohort } from "./_interfaces"
 
 const ObjectId = Schema.Types.ObjectId
 

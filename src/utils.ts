@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import Influencer from "./models/Influencer"
+import { Influencer } from "./models/_database"
 
 // translate string to mongodb "ObjectId" type
 const stringToId = (str: string): mongoose.Types.ObjectId => {
@@ -7,7 +7,7 @@ const stringToId = (str: string): mongoose.Types.ObjectId => {
 }
 
 // make sure emails string is formatted correctly
-const validateEmail = (email: string): boolean => {
+const checkMail = (email: string): boolean => {
 	let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 	return email.match(re) ? true : false
 }
@@ -32,44 +32,26 @@ const getAmount = async (cost: number, code: string): Promise<number> => {
 	else return cost - cost * discount
 }
 
-const MAX_VIRGINS = 20
-
-const BASE_COACH = stringToId("62851068aea6ae0fc120f0c9")
-
-const gameArray = [
-	"valorant",
-	"lol",
-	"cs:go",
-	"pubg",
-	"rainbow6siege",
-	"rocketLeague",
-	"apex",
-	"warzone",
-	"fortnite",
-	"dota2",
-	"tf2",
-	"sc2",
-]
-
-const influencerArray = [
-	"tatami",
-	"e-girl",
-	"streamer",
-	"youtuber",
-	"discord-admin",
-	"reddit-admin",
-	"facebook-page",
-	"instagram-page",
-]
+// used by stripe
+// https://stripe.com/docs/payments/accept-a-payment-synchronously?html-or-react=react
+const stripeResponse = (intent: any): any => {
+	if (
+		intent.status === "requires_action" &&
+		intent.next_action.type === "use_stripe_sdk"
+	) {
+		return {
+			requires_action: true,
+			payment_intent_client_secret: intent.client_secret,
+		}
+	} else if (intent.status === "succeeded") return { success: true }
+	else return { error: "Invalid PaymentIntent status" }
+}
 
 export {
-	validateEmail,
+	checkMail,
 	stringToId,
 	checkReferral,
 	getDiscount,
 	getAmount,
-	MAX_VIRGINS,
-	BASE_COACH,
-	gameArray,
-	influencerArray,
+	stripeResponse,
 }
