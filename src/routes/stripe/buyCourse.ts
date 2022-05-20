@@ -22,16 +22,16 @@ const stripe = new Stripe(SECRET_KEY, { apiVersion: "2020-08-27" })
  * @route       POST api.tatami.gg/stripe/buyCourse
  * @desc        handles payment in backend and saves
  * @access      public
- * @body        { referral, name, email, course_id }
+ * @body        { referral, name, email, courseID }
  *
  */
 
 router.post("/buyCourse", async (req: Request, res: Response) => {
-	const { referral, name, email, course_id } = req.body
+	const { referral, name, email, courseID } = req.body
 
 	// check if req.body is present
-	if (!(name && email && course_id))
-		return res.status(400).json("name, email or course_id is missing")
+	if (!(name && email && courseID))
+		return res.status(400).json("name, email or courseID is missing")
 
 	// validate email format
 	if (!validateEmail(email))
@@ -51,10 +51,11 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 		user = await Student.findOne({ email })
 
 		// search for course
-		const course = await Course.findById(course_id)
+		const course = await Course.findById(courseID)
 		if (!course) return res.status(404).json("course not found")
 
 		if (user && course) {
+            
 			// stripe handles the payment
 			const paymentIntent = await stripe.paymentIntents.create({
 				customer: user.id,

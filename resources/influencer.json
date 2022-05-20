@@ -1,0 +1,13 @@
+{
+	"_id": { "$oid": "62879e3664e63a9c5da28643" },
+	"edition": "tatami",
+	"email": "team@tatami.gg",
+	"type": "tatami",
+	"code": "TATAMI20",
+	"cut": 0,
+	"discount": 0.2,
+	"paymentMethod": "don't pay your taxes lol",
+	"students": [],
+	"upfrontCost": 0,
+	"amountOwed": 0
+}
