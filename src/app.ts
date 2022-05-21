@@ -1,15 +1,13 @@
 // dependencies
 import express, { Application, Request, Response, json } from "express"
 import { connectDB } from "./db"
-import dotenv from "dotenv"
+import { PORT } from "./const"
 import cors from "cors"
 
 // init server
 const app: Application = express()
-const PORT = process.env.PORT || 6969
 
 // server configs
-dotenv.config()
 app.use(cors())
 app.use(json())
 

@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose"
 import { IInfluencer } from "./_interfaces"
-import { INFLUENCER_ARRAY } from "../consts"
+import { INFLUENCER_ARRAY } from "../const"
 
 const ObjectId = Schema.Types.ObjectId
 

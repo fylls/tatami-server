@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose"
 import { ILectureInfo, ICourse } from "./_interfaces"
-import { GAME_ARRAY } from "../consts"
+import { GAME_ARRAY } from "../const"
 
 const ObjectId = Schema.Types.ObjectId
 

@@ -1,21 +1,14 @@
-import Stripe from "stripe"
-import dotenv from "dotenv"
-import { BASE_COACH } from "../../consts" //TODO to remove
-import { Request, Response, Router } from "express"
-import { stripeResponse, checkMail, getAmount } from "../../utils"
 import { Student, Course, Influencer, Cohort } from "../../models/_database"
+import { BASE_COACH, MAX_STUDENTS, STRIPE_KEY } from "../../const"
+import { stripeResponse, checkMail, getAmount } from "../../utils"
+import { Request, Response, Router } from "express"
+import Stripe from "stripe"
 
 // express router
 const router = Router()
-export default router
 
-// TODO in production se uso chiavi test scrivio e non aggiungere persone al back
-
-// stripe
-dotenv.config()
-const TEST_KEY = process.env.TEST_KEY ?? ""
-if (!TEST_KEY) console.log("stripe key is missing")
-const stripe = new Stripe(TEST_KEY, { apiVersion: "2020-08-27" })
+// stripe init
+const stripe = new Stripe(STRIPE_KEY, { apiVersion: "2020-08-27" })
 
 /**
  *
@@ -137,7 +130,7 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 					}
 
 					// if too many students: create a new cohort
-					if (last_cohort && numberOfStudents % 20 === 0) {
+					if (last_cohort && numberOfStudents % MAX_STUDENTS === 0) {
 						// new cohort object
 						const newCohort = new Cohort({
 							edition: course.currentCohort + 1,
@@ -226,3 +219,5 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 		console.log(err)
 	}
 })
+
+export default router

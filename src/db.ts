@@ -1,24 +1,17 @@
 // dependencies
 import mongoose from "mongoose"
-import dotenv from "dotenv"
-
-//TODO figure a way to put ONLY one dotenv, create a file with all the constants
-
-// environment
-dotenv.config()
-const URI = process.env.MONGO_URI ?? ""
-if (!URI) console.log("URI is missing")
+import { MONGO_URI, DB_NAME } from "./const"
 
 // opening
 const connectDB = async () => {
-	await mongoose.connect(URI)
-	console.log(`successfully connected to DATABASE`)
+	await mongoose.connect(MONGO_URI)
+	console.log(`successfully connected to DB: ${DB_NAME}`)
 }
 
 // closing
 const shoutDownDB = async () => {
 	mongoose.connection.close(() =>
-		console.log(`closing connection with DATABASE `)
+		console.log(`closing connection to DB: ${DB_NAME}`)
 	)
 }
 
