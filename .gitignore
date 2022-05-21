@@ -1,5 +1,6 @@
-.env
+.env 
 /dist
 .vscode
 output.zip
 /node_modules
+beanstalk.zip 

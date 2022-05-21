@@ -4,12 +4,12 @@
 	"description": "I hate gamers",
 	"main": "index.js",
 	"scripts": {
+		"build": "tsc -p .",
 		"dev": "nodemon src/app.ts",
 		"start": "node dist/app.js",
-		"build": "tsc -p .",
 		"delete": "rm -rf node_modules/",
 		"update": "rm -rf node_modules/ && npm install -g npm-check-updates && ncu -u && npm install",
-		"zip": "tsc -p . && cd .. && zip -r tatami-server/output.zip tatami-server -x \"tatami-server/src/*\" \"tatami-server/node_modules/*\" \"tatami-server/resources/*\" \"tatami-server/.example.env\""
+		"zip": "tsc -p . && zip beanstalk.zip dist/* .env package.json package-lock.json .gitignore"
 	},
 	"author": "fyll",
 	"license": "WTFPL",

@@ -2,6 +2,7 @@ import { stringToId, checkEnv, getDbName } from "./utils"
 import dotenv from "dotenv"
 
 // get all environment variables
+// TODO is there a way to make it more elegant
 dotenv.config()
 const PORT = process.env.PORT ?? 6969
 const NODE_ENV = process.env.NODE_ENV ?? ""

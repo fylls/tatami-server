@@ -24,7 +24,7 @@ const checkMail = (email: string): boolean => {
 
 // if the referral code is still valid it returns true, otherwise it returns false
 const checkReferral = async (code: string): Promise<boolean> => {
-	const isValid = await Influencer.findOne({ code }) // influencer object
+	const isValid = await Influencer.findOne({ code })
 	return isValid ? true : false
 }
 
@@ -55,6 +55,16 @@ const stripeResponse = (intent: any): any => {
 		}
 	} else if (intent.status === "succeeded") return { success: true }
 	else return { error: "Invalid PaymentIntent status" }
+}
+
+// returns in an array all the args of a function
+// prettier-ignore
+const getFunctionArgs = (func: any): string[] => {
+	const args = func.toString().match(/function\s.*?\(([^)]*)\)/)[1]
+	return args
+		.split(",")
+		.map( (arg: any) => { return arg.replace(/\/\*.*\*\//, "").trim()})
+		.filter(function (arg: any) {return arg})
 }
 
 // check if all environment variables are defined
