@@ -1,9 +1,12 @@
 // this file helps frontend developers use and understand the APIs
 import axios from "axios"
-const PROXY = "https://api.tatami.gg" // "http://localhost:6969"
+import { NODE_ENV } from "../const"
+
+// PROXY represents the base API endpoint
+// prettier-ignore
+const PROXY = (NODE_ENV === "live") ? "https://api.tatami.gg" : "http://localhost:6969"
 
 // stripe API
-
 const buyCourse = async (
 	name: string,
 	email: string,
@@ -28,7 +31,6 @@ const buyCourse = async (
 }
 
 // courses API
-
 const getAllCourses = async (refCode: string): Promise<boolean> => {
 	try {
 		return await axios.get(`${PROXY}/utils/checkReferral/${refCode}`)
@@ -39,7 +41,6 @@ const getAllCourses = async (refCode: string): Promise<boolean> => {
 }
 
 // utils API
-
 const checkReferral = async (refCode: string): Promise<boolean> => {
 	try {
 		return await axios.get(`${PROXY}/utils/checkReferral/${refCode}`)

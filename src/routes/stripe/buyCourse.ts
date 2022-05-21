@@ -60,8 +60,7 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 			// code from https://cutt.ly/stripedocs
 
 			try {
-				let intent
-				console.log("inizio intent")
+				let int
 
 				const customer = await stripe.customers.create({
 					description: user.id,
@@ -70,7 +69,7 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 				})
 
 				if (payment_method_id) {
-					intent = await stripe.paymentIntents.create({
+					int = await stripe.paymentIntents.create({
 						customer: customer.id,
 						payment_method: payment_method_id,
 						amount: await getAmount(course.basePrice, referral),
@@ -80,136 +79,124 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 						confirm: true,
 					})
 				} else if (payment_intent_id) {
-					intent = await stripe.paymentIntents.confirm(
-						payment_intent_id
-					)
-				}
-				console.log("fine intent")
-
-				const isPaid = stripeResponse(intent)
-
-				if (!isPaid.error) {
-					/*========================================================================================*/
-					// the following code executes IF & ONLY IF the payment goes through
-					/*========================================================================================*/
-
-					console.log("inizio business logic")
-
-					// searching for last cohort
-					let last_cohort_id =
-						course.cohorts[course.cohorts.length - 1]
-					let last_cohort = await Cohort.findById(last_cohort_id)
-
-					// check number of students in course
-					const numberOfStudents = course.students.length
-
-					// this code will execute if there is no cohort (E.G. first person that pays on website)
-					if (!last_cohort) {
-						// new cohort object
-						const newCohort = new Cohort({
-							edition: 1,
-							course: course.id,
-							mainTeacher: BASE_COACH, //TODO this has to be made dynamic
-							students: [user.id],
-							lectures: [],
-						})
-
-						// save cohort in DB
-						await newCohort.save()
-
-						// check duplicate and add cohort
-						if (!course.cohorts.includes(newCohort.id))
-							course.cohorts.push(newCohort.id)
-
-						// check duplicates and add students
-						if (!course.students.includes(user.id))
-							course.students.push(user.id)
-
-						// save course in DB
-						await course.save()
-					}
-
-					// if too many students: create a new cohort
-					if (last_cohort && numberOfStudents % MAX_STUDENTS === 0) {
-						// new cohort object
-						const newCohort = new Cohort({
-							edition: course.currentCohort + 1,
-							course: course.id,
-							mainTeacher: BASE_COACH, //TODO this has to be made dynamic
-							students: [user.id],
-							lectures: [],
-						})
-
-						// save cohort in DB
-						await newCohort.save()
-
-						// check duplicate and add cohort
-						if (!course.cohorts.includes(newCohort.id))
-							course.cohorts.push(newCohort.id)
-
-						// check duplicates and add students
-						if (!course.students.includes(user.id))
-							course.students.push(user.id)
-
-						// update current cohort number
-						course.currentCohort = course.currentCohort + 1
-
-						// save course in DB
-						await course.save()
-					}
-
-					// else : this cohort exist: you just need to add the student
-					if (last_cohort && numberOfStudents % 20 !== 0) {
-						// check duplicates and add student to cohort
-						if (!last_cohort.students.includes(user.id))
-							last_cohort.students.push(user.id)
-
-						// save cohort in DB
-						await last_cohort.save()
-
-						// check duplicates and add student to course
-						if (!course.students.includes(user.id))
-							course.students.push(user.id)
-
-						// save course in DB
-						await course.save()
-					}
-
-					// update last_cohort_id
-					last_cohort_id = course.cohorts[course.cohorts.length - 1]
-
-					// info object
-					const infoObj = {
-						cohort: last_cohort_id,
-						referral: referral,
-						watched: [],
-						updated_at: new Date(),
-					}
-
-					// check duplicate and add info to student
-					const index = user.info
-						.map(x => x.cohort.valueOf())
-						.indexOf(last_cohort_id)
-					if (!index) user.info.push(infoObj)
-
-					// save student in DB
-					await user.save()
-
-					// find influencer (has to exist since it has been checked before)
-					const i = await Influencer.findOne({ code: referral })
-
-					// update influencer, check for duplicate
-					if (i && !i.students.includes(user.id)) {
-						i.students.push(user.id)
-						i.amountOwed = i.amountOwed + course.basePrice * i.cut
-						await i.save()
-					}
-					console.log("fine business logic")
+					int = await stripe.paymentIntents.confirm(payment_intent_id)
 				}
 
-				console.log("ritorno api")
+				/*========================================================================================*/
+				// the following code executes IF & ONLY IF the payment goes through
+				/*========================================================================================*/
+
+				// searching for last cohort
+				let lastCohortID = course.cohorts[course.cohorts.length - 1]
+				let lastCohort = await Cohort.findById(lastCohortID)
+
+				// check number of students in course
+				const numberOfStudents = course.students.length
+
+				// this code will execute if there is no cohort (E.G. first person that pays on website)
+				if (!lastCohort) {
+					// new cohort object
+					const newCohort = new Cohort({
+						edition: 1,
+						course: course.id,
+						mainTeacher: BASE_COACH, //TODO this has to be made dynamic
+						students: [user.id],
+						lectures: [],
+					})
+
+					// save cohort in DB
+					await newCohort.save()
+
+					// check duplicate and add cohort
+					if (!course.cohorts.includes(newCohort.id))
+						course.cohorts.push(newCohort.id)
+
+					// check duplicates and add students
+					if (!course.students.includes(user.id))
+						course.students.push(user.id)
+
+					// save course in DB
+					await course.save()
+				}
+
+				// if too many students: create a new cohort
+				if (lastCohort && numberOfStudents % MAX_STUDENTS === 0) {
+					// new cohort object
+					const newCohort = new Cohort({
+						edition: course.currentCohort + 1,
+						course: course.id,
+						mainTeacher: BASE_COACH, //TODO this has to be made dynamic
+						students: [user.id],
+						lectures: [],
+					})
+
+					// save cohort in DB
+					await newCohort.save()
+
+					// check duplicate and add cohort
+					if (!course.cohorts.includes(newCohort.id))
+						course.cohorts.push(newCohort.id)
+
+					// check duplicates and add students
+					if (!course.students.includes(user.id))
+						course.students.push(user.id)
+
+					// update current cohort number
+					course.currentCohort = course.currentCohort + 1
+
+					// save course in DB
+					await course.save()
+				}
+
+				// else : this cohort exist: you just need to add the student
+				if (lastCohort && numberOfStudents % 20 !== 0) {
+					// check duplicates and add student to cohort
+					if (!lastCohort.students.includes(user.id))
+						lastCohort.students.push(user.id)
+
+					// save cohort in DB
+					await lastCohort.save()
+
+					// check duplicates and add student to course
+					if (!course.students.includes(user.id))
+						course.students.push(user.id)
+
+					// save course in DB
+					await course.save()
+				}
+
+				// update lastCohortID
+				lastCohortID = course.cohorts[course.cohorts.length - 1]
+
+				// info object
+				const infoObj = {
+					cohort: lastCohortID,
+					referral: referral,
+					watched: [],
+					updatedAt: new Date(),
+				}
+
+				// check duplicate and add info to student
+				const index = user.info
+					.map(x => x.cohort.valueOf())
+					.indexOf(lastCohortID)
+				if (!index) user.info.push(infoObj)
+
+				// save student in DB
+				await user.save()
+
+				// find influencer (has to exist since it has been checked before)
+				const i = await Influencer.findOne({ code: referral })
+
+				// update influencer, check for duplicate
+				if (i && !i.students.includes(user.id)) {
+					i.students.push(user.id)
+					i.amountOwed = i.amountOwed + course.basePrice * i.cut
+					await i.save()
+				}
+
 				// return stripe confirmation to client
-				return res.send(isPaid)
+				return res.send(stripeResponse(int))
 			} catch (err: any) {
 				console.log(err.message)
 				return res.send({ error: err.message })

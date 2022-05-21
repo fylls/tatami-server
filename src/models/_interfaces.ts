@@ -26,7 +26,7 @@ interface IStudentInfo {
 	cohort: typeof ObjectId
 	referral: string
 	watched: number[]
-	updated_at: Date
+	updatedAt: Date
 }
 
 interface IStudent {
