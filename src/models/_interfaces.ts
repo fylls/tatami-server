@@ -83,7 +83,9 @@ interface ICohort {
 // DB: influencers
 
 interface IInfluencer {
+	slug: string
 	name: string
+	isActive: boolean
 	email: string
 	type: string
 	code: string
@@ -93,6 +95,8 @@ interface IInfluencer {
 	students: typeof ObjectId[]
 	upfrontCost: number
 	amountOwed: number
+	totalRevenue: number
+	totalPaid: number
 	created_at?: Date
 }
 

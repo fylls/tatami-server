@@ -24,15 +24,16 @@ const checkMail = (email: string): boolean => {
 
 // if the referral code is still valid it returns true, otherwise it returns false
 const checkReferral = async (code: string): Promise<boolean> => {
-	const isValid = await Influencer.findOne({ code })
-	return isValid ? true : false
+	const influencer = await Influencer.findOne({ code })
+	if (influencer && influencer.isActive) return true
+	return false
 }
 
 // return discount related to referral code. returns 0 if no discount
 const getDiscount = async (code: string): Promise<number> => {
 	const influencer = await Influencer.findOne({ code })
-	if (!influencer) return 0
-	else return influencer.discount
+	if (influencer && influencer.isActive) return influencer.discount
+	else return 0
 }
 
 // returns how much student has to pay. It cost less with a valid referral code
@@ -42,8 +43,7 @@ const getAmount = async (cost: number, code: string): Promise<number> => {
 	else return Math.round(cost * (1 - discount))
 }
 
-// used by stripe
-// https://stripe.com/docs/payments/accept-a-payment-synchronously?html-or-react=react
+// used by stripe (code at https://cutt.ly/stripedocs)
 const stripeResponse = (intent: any): any => {
 	if (
 		intent.status === "requires_action" &&

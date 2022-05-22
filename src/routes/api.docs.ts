@@ -1,8 +1,8 @@
 // this file helps frontend developers use and understand the APIs
 import axios from "axios"
 import { NODE_ENV } from "../const"
+import { ICourse, IInfluencer } from "../models/_interfaces"
 
-// PROXY represents the base API endpoint
 // prettier-ignore
 const PROXY = (NODE_ENV === "live") ? "https://api.tatami.gg" : "http://localhost:6969"
 
@@ -25,18 +25,46 @@ const buyCourse = async (
 			referral,
 		}
 		return await axios.post(`${PROXY}/stripe/buyCourse`, payload)
-	} catch (error) {
-		console.log(error)
+	} catch (err) {
+		console.log(err)
 	}
 }
 
 // courses API
-const getAllCourses = async (refCode: string): Promise<boolean> => {
+const getAllCourses = async (): Promise<ICourse[] | null> => {
 	try {
-		return await axios.get(`${PROXY}/utils/checkReferral/${refCode}`)
+		return await axios.get(`${PROXY}/utils/courses`)
+	} catch (err) {
+		console.log(err)
+		return null
+	}
+}
+
+const getOneCourse = async (courseID: string): Promise<ICourse | null> => {
+	try {
+		return await axios.get(`${PROXY}/utils/courses/${courseID}`)
 	} catch (err) {
 		console.log("err")
-		return false
+		return null
+	}
+}
+
+// referrals API
+const getAllReferrals = async (): Promise<IInfluencer[] | null> => {
+	try {
+		return await axios.get(`${PROXY}/referrals`)
+	} catch (err) {
+		console.log(err)
+		return null
+	}
+}
+
+const GetOneReferral = async (refCode: string): Promise<IInfluencer | null> => {
+	try {
+		return await axios.get(`${PROXY}/referrals/${refCode}`)
+	} catch (err) {
+		console.log("err")
+		return null
 	}
 }
 

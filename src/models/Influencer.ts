@@ -6,8 +6,10 @@ const ObjectId = Schema.Types.ObjectId
 
 const influencerSchema = new Schema<IInfluencer>(
 	{
+		slug: { type: String, required: true },
+		isActive: { type: Boolean, required: true },
 		name: { type: String, required: true },
-		email: { type: String, required: true, unique: true },
+		email: { type: String, required: true },
 		type: { type: String, required: true, enum: INFLUENCER_ARRAY },
 		code: { type: String, required: true, unique: true },
 		cut: { type: Number, required: true, min: 0, max: 1 },
@@ -16,6 +18,8 @@ const influencerSchema = new Schema<IInfluencer>(
 		students: [{ type: ObjectId, ref: "students" }],
 		upfrontCost: { type: Number, required: true, default: 0 },
 		amountOwed: { type: Number, required: true, default: 0 },
+		totalRevenue: { type: Number, required: true, default: 0 },
+		totalPaid: { type: Number, required: true, default: 0 },
 	},
 	{ versionKey: false, timestamps: true }
 )
@@ -27,18 +31,21 @@ export = model<IInfluencer>("influencers", influencerSchema)
 EXAMPLE
 
 {
-	id: "507f1f77bcf86cd799439011",
-	name: "Emma Langevin",
-	email: "emma@langevin.com",
-	type: "e-girl",
-	code: "EMMA20%",
-	cut: 0.1,
-	discount: 0.20,
-    paymentMethod: "don't pay your taxes lol",
-    students: ["507f1f77bcf86cd799439011", "507f1f77bcf86cd799439011"]
-    upfrontCost: 0
-    amountOwed: 40000
-	created_at: "2022-05-14T19:47:01+0000",
+	_id: { $oid: "62879e3664e63a9c5da28643" },
+	name: "tatami",
+    slug : "tatami"
+    isActive: true,
+	email: "team@tatami.gg",
+	type: "tatami",
+	code: "TATAMI20",
+	cut: 0,
+	discount: 0.2,
+	paymentMethod: "don't pay your taxes lol",
+	students: [],
+	upfrontCost: 0,
+	amountOwed: 0,
+    totalRevenue: 0,
+    totalPaid: 0
 }
 
 */
