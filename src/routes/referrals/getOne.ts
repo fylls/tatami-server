@@ -7,26 +7,26 @@ export default router
 
 /**
  *
- * @route       GET api.tatami.gg/referrals/:refCode
+ * @route       GET api.tatami.gg/referrals/:username
  * @desc        return influencer object given referral code
  * @access      public
- * @params      refCode
+ * @params      username
  *
  */
 
-router.get("/:refCode", async (req: Request, res: Response) => {
+router.get("/:username", async (req: Request, res: Response) => {
 	try {
 		// get parameter
-		const refCode = req.params.refCode
+		const username = req.params.username
 
 		// return error if missing
-		if (!refCode) return res.status(400).json("refCode is missing")
+		if (!username) return res.status(400).json("username is missing")
 
 		// search for specific course by ID
-		const influencer = await Influencer.findOne({ code: refCode })
+		const influencer = await Influencer.findOne({ username })
 
 		// return error if  not found
-		if (!influencer) return res.status(400).json("courses not found")
+		if (!influencer) return res.status(400).json("influencer not found")
 
 		// return asked course
 		return res.json(influencer)

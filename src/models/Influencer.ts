@@ -6,9 +6,9 @@ const ObjectId = Schema.Types.ObjectId
 
 const influencerSchema = new Schema<IInfluencer>(
 	{
-		slug: { type: String, required: true },
-		isActive: { type: Boolean, required: true },
+		username: { type: String, required: true, unique: true },
 		name: { type: String, required: true },
+		isActive: { type: Boolean, required: true },
 		email: { type: String, required: true },
 		type: { type: String, required: true, enum: INFLUENCER_ARRAY },
 		code: { type: String, required: true, unique: true },

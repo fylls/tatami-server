@@ -83,7 +83,7 @@ interface ICohort {
 // DB: influencers
 
 interface IInfluencer {
-	slug: string
+	username: string
 	name: string
 	isActive: boolean
 	email: string
