@@ -16,6 +16,7 @@ app.get("/", (req: Request, res: Response) => res.send("Tatami API endpoint"))
 
 // routes
 import buyCourseRoute from "./routes/stripe/buyCourse"
+//import onboardAffiliateRoute from "./routes/stripe/onboardAffiliate"
 import checkReferralRoute from "./routes/utils/checkReferral"
 import getDiscountRoute from "./routes/utils/getDiscount"
 import getStudentPerCourseRoute from "./routes/utils/studentsPerCourse"
@@ -26,6 +27,7 @@ import getOneReferralRoute from "./routes/referrals/getOne"
 
 // stripe routes
 app.use("/stripe", buyCourseRoute)
+//app.use("/stripe", onboardAffiliateRoute)
 
 // utils routes
 app.use("/utils", checkReferralRoute)

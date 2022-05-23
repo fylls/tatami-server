@@ -6,6 +6,7 @@ import Stripe from "stripe"
 
 // express router
 const router = Router()
+export default router
 
 // stripe init
 const stripe = new Stripe(STRIPE_KEY, { apiVersion: "2020-08-27" })
@@ -208,5 +209,3 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 		return res.send({ error: err.message })
 	}
 })
-
-export default router

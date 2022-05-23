@@ -33,7 +33,7 @@ const buyCourse = async (
 // courses API
 const getAllCourses = async (): Promise<ICourse[] | null> => {
 	try {
-		return await axios.get(`${PROXY}/utils/courses`)
+		return await axios.get(`${PROXY}/courses`)
 	} catch (err) {
 		console.log(err)
 		return null
@@ -42,7 +42,7 @@ const getAllCourses = async (): Promise<ICourse[] | null> => {
 
 const getOneCourse = async (courseID: string): Promise<ICourse | null> => {
 	try {
-		return await axios.get(`${PROXY}/utils/courses/${courseID}`)
+		return await axios.get(`${PROXY}/courses/${courseID}`)
 	} catch (err) {
 		console.log("err")
 		return null

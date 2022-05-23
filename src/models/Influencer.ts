@@ -4,6 +4,7 @@ import { INFLUENCER_ARRAY } from "../const"
 
 const ObjectId = Schema.Types.ObjectId
 
+// TODO aggiungi altre info di link social,cambia scunto in eruro e non percentuale
 const influencerSchema = new Schema<IInfluencer>(
 	{
 		username: { type: String, required: true, unique: true },
