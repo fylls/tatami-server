@@ -1,114 +1,95 @@
 import mongoose from "mongoose"
 const ObjectId = mongoose.Types.ObjectId
 
-/*=========================================*/
-// DB: teachers
+/*================ teachers ================*/
 
 interface ITeacher {
 	name: string
+	username: string
 	description: string
 	email: string
+	languages: string[]
+	games: string[]
+	lessons: typeof ObjectId[]
+	image?: string
+	stripe?: string
 	discord?: string
 	youtube?: string
+	fiverr?: string
+	metafy?: string
 	twitch?: string
-	cohorts?: typeof ObjectId[]
-	img?: string
-	created_at?: Date
+	updatedAt?: Date
+	createdAt?: Date
 }
 
-// TODO add new coach info (inspiration from TypeForm)
-// languages, games, rank
-
-/*=========================================*/
-// DB: students
-
-interface IStudentInfo {
-	cohort: typeof ObjectId
-	referral: string
-	watched: number[]
-	updatedAt: Date
-}
+/*================ students ================*/
 
 interface IStudent {
 	name: string
 	email: string
-	info: IStudentInfo[]
-	created_at?: Date
+	lessons: typeof ObjectId[]
+	updatedAt?: Date
+	createdAt?: Date
+	// TODO subscription info into student ?
 }
 
-/*=========================================*/
-// DB: courses
+/*==================== courses ====================*/
 
-interface ILectureInfo {
+interface ICourseInfo {
 	title: string
 	description: string
 }
 
 interface ICourse {
 	slug: string
+	game: string
+	title: string
+	description: string
+	image?: string
+	thumbnail?: string
+	info: ICourseInfo[]
+	lessons: typeof ObjectId[]
+	students: typeof ObjectId[]
+	updatedAt?: Date
+	createdAt?: Date
+}
+
+/*==================== lessons ====================*/
+
+interface ILesson {
+	when: Date
 	title: string
 	game: string
-	description: string
-	basePrice: number
-	currentCohort: number
-	cohorts: typeof ObjectId[]
-	students: typeof ObjectId[]
-	info?: ILectureInfo[]
-	img?: string
-	thumbnail: string
-	created_at?: Date
-}
-
-/*=========================================*/
-// DB: cohorts
-
-interface ILecture extends ILectureInfo {
-	teacher: typeof ObjectId
-	liveStudents: typeof ObjectId[]
-	when: Date
-}
-
-interface ICohort {
-	edition: number
+	maxStudents: number
 	course: typeof ObjectId
-	mainTeacher: typeof ObjectId
+	teacher: typeof ObjectId
 	students: typeof ObjectId[]
-	lectures: ILecture[]
-	created_at?: Date
+	updatedAt?: Date
+	createdAt?: Date
 }
 
-//TODO  define relationship between cohort and course
-
-/*=========================================*/
-// DB: influencers
+/*==================== influencers ====================*/
 
 interface IInfluencer {
+	isActive: boolean
 	username: string
 	name: string
-	isActive: boolean
 	email: string
 	type: string
 	code: string
-	cut: number // on the revenues of the single student
-	discount: number // on the total price
-	paymentMethod: string
-	students: typeof ObjectId[]
+	notes: string
+	cut: number
+	discount: number
 	upfrontCost: number
 	amountOwed: number
 	totalRevenue: number
 	totalPaid: number
-	created_at?: Date
+	students: typeof ObjectId[]
+	lastPaid?: Date
+	updatedAt?: Date
+	createdAt?: Date
 }
 
-/*=========================================*/
+/*======================================================*/
 
-export {
-	ITeacher,
-	IStudentInfo,
-	IStudent,
-	ILectureInfo,
-	ICourse,
-	ILecture,
-	ICohort,
-	IInfluencer,
-}
+export { ITeacher, IStudent, ICourseInfo, ICourse, ILesson, IInfluencer }

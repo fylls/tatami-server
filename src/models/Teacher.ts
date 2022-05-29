@@ -1,23 +1,30 @@
 import { Schema, model } from "mongoose"
 import { ITeacher } from "./_interfaces"
+import { LANGUAGE_ARRAY, GAME_ARRAY } from "../const"
 
 const ObjectId = Schema.Types.ObjectId
 
-const coachSchema = new Schema<ITeacher>(
+const teacherSchema = new Schema<ITeacher>(
 	{
-		name: { type: String, required: true, unique: true },
+		name: { type: String, required: true },
+		username: { type: String, required: true, unique: true },
 		description: { type: String, required: true },
 		email: { type: String, required: true, unique: true },
-		cohorts: [{ type: ObjectId, ref: "cohorts" }],
-		discord: String,
-		youtube: String,
-		twitch: String,
-		img: String,
+		languages: [{ type: String, required: true, enum: LANGUAGE_ARRAY }],
+		games: [{ type: String, required: true, enum: GAME_ARRAY }],
+		lessons: [{ type: ObjectId, ref: "lessons" }],
+		image: { type: String },
+		stripe: { type: String },
+		discord: { type: String },
+		youtube: { type: String },
+		fiverr: { type: String },
+		metafy: { type: String },
+		twitch: { type: String },
 	},
-	{ versionKey: false,  timestamps: true}
+	{ versionKey: false, timestamps: true }
 )
 
-export = model<ITeacher>("teachers", coachSchema)
+export = model<ITeacher>("teachers", teacherSchema)
 
 /*
 
@@ -25,14 +32,16 @@ EXAMPLE
 
 c = {
 	id: "507f1f77bcf86cd799439011",
-	name: "jeff",
-    name: "jeff",
+	name: "Inti Rodriguez",
+    username: "sagittarius",
+    languages: ["english", "spanish"],
+    games: ["lol"],
 	email: "jeff@gmail.com",
 	discord: "jeff#6969",
     youtube: "yt.com/jeff",
     twitch: "t.tv/jeff",
-	img: "https://lol.com/image",
-    cohorts: [
+	imgage: "https://lol.com/image",
+    lessons: [
 		"507f1f77bcf86cd799439011",
 		"507f1f77bcf86cd799439011",
 		"507f1f77bcf86cd799439011",

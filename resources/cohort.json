@@ -4,7 +4,7 @@
 	"course": { "$oid": "62850ea5aea6ae0fc120f0c8" },
 	"mainTeacher": { "$oid": "62851068aea6ae0fc120f0c9" },
 	"students": [],
-	"lectures": [
+	"lessons": [
 		{
 			"title": "TODO",
 			"description": "TODO",

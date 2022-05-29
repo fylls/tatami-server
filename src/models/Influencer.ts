@@ -4,23 +4,23 @@ import { INFLUENCER_ARRAY } from "../const"
 
 const ObjectId = Schema.Types.ObjectId
 
-// TODO aggiungi altre info di link social,cambia scunto in eruro e non percentuale
 const influencerSchema = new Schema<IInfluencer>(
 	{
-		username: { type: String, required: true, unique: true },
-		name: { type: String, required: true },
 		isActive: { type: Boolean, required: true },
+		username: { type: String, required: true, unique: true },
+		name: { type: String, required: true, unique: true },
 		email: { type: String, required: true },
 		type: { type: String, required: true, enum: INFLUENCER_ARRAY },
 		code: { type: String, required: true, unique: true },
-		cut: { type: Number, required: true, min: 0, max: 1 },
-		discount: { type: Number, required: true, min: 0, max: 1 },
-		paymentMethod: { type: String },
-		students: [{ type: ObjectId, ref: "students" }],
+		notes: { type: String },
+		cut: { type: Number, required: true, min: 0, max: 1, default: 0 },
+		discount: { type: Number, required: true, default: 0 },
 		upfrontCost: { type: Number, required: true, default: 0 },
 		amountOwed: { type: Number, required: true, default: 0 },
 		totalRevenue: { type: Number, required: true, default: 0 },
 		totalPaid: { type: Number, required: true, default: 0 },
+		students: [{ type: ObjectId, ref: "students" }],
+		lastPaid: { type: Date, required: true },
 	},
 	{ versionKey: false, timestamps: true }
 )
@@ -33,15 +33,15 @@ EXAMPLE
 
 {
 	_id: { $oid: "62879e3664e63a9c5da28643" },
-	name: "tatami",
-    slug : "tatami"
     isActive: true,
+	username: "tatami",
+    name : "tatami team"
 	email: "team@tatami.gg",
 	type: "tatami",
 	code: "TATAMI20",
+    notes: "don't pay your taxes lol",
 	cut: 0,
-	discount: 0.2,
-	paymentMethod: "don't pay your taxes lol",
+	discount: 1000,
 	students: [],
 	upfrontCost: 0,
 	amountOwed: 0,

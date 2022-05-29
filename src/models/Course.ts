@@ -1,10 +1,10 @@
 import { Schema, model } from "mongoose"
-import { ILectureInfo, ICourse } from "./_interfaces"
+import { ICourseInfo, ICourse } from "./_interfaces"
 import { GAME_ARRAY } from "../const"
 
 const ObjectId = Schema.Types.ObjectId
 
-const lectureInfoSchema = new Schema<ILectureInfo>(
+const courseInfoSchema = new Schema<ICourseInfo>(
 	{
 		title: { type: String, required: true },
 		description: { type: String, required: true },
@@ -18,13 +18,11 @@ const courseSchema = new Schema<ICourse>(
 		game: { type: String, required: true, enum: GAME_ARRAY },
 		title: { type: String, required: true },
 		description: { type: String, required: true },
-		basePrice: { type: Number, default: 4000 },
-		currentCohort: { type: Number },
-		cohorts: [{ type: ObjectId, ref: "cohorts" }],
+		lessons: [{ type: ObjectId, ref: "lessons" }],
 		students: [{ type: ObjectId, ref: "students" }],
-		info: [{ type: lectureInfoSchema, required: true }],
+		info: [{ type: courseInfoSchema, required: true }],
 		thumbnail: String,
-		img: String,
+		image: String,
 	},
 	{ versionKey: false, timestamps: true }
 )
@@ -41,9 +39,7 @@ b = {
 	game: "lol",
 	title: "LoL masterclass",
 	description: "here is a test",
-	price: 4000,
-	currentCohort: 3,
-	cohorts: [
+	lessons: [
 		"0x227b4ii9s793339018",
 		"0xf44b88sss795539031",
 		"0xxf44bfJJss79KKsK22",
@@ -55,11 +51,11 @@ b = {
 	],
 	info: [
 		{
-			title: "lecture 1",
+			title: "lesson 1",
 			description: "test",
 		},
 		{
-			title: "lecture 2",
+			title: "lesson 2",
 			description: "test",
 		},
 	],
