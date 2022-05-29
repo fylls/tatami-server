@@ -15,18 +15,18 @@ app.use(json())
 app.get("/", (req: Request, res: Response) => res.send("Tatami API endpoint"))
 
 // routes
-import buyCourseRoute from "./routes/stripe/buyCourse"
+//import buyCourseRoute from "./routes/stripe/buyCourse"
 //import onboardAffiliateRoute from "./routes/stripe/onboardAffiliate"
 import checkReferralRoute from "./routes/utils/checkReferral"
 import getDiscountRoute from "./routes/utils/getDiscount"
 import getStudentPerCourseRoute from "./routes/utils/studentsPerCourse"
 import getAllCoursesRoute from "./routes/courses/getAll"
 import getOneCourseRoute from "./routes/courses/getOne"
-import getAllReferralsRoute from "./routes/referrals/getAll"
-import getOneReferralRoute from "./routes/referrals/getOne"
+import getAllReferralsRoute from "./routes/affiliates/getAll"
+import getOneReferralRoute from "./routes/affiliates/getOne"
 
 // stripe routes
-app.use("/stripe", buyCourseRoute)
+// app.use("/stripe", buyCourseRoute)
 //app.use("/stripe", onboardAffiliateRoute)
 
 // utils routes
@@ -38,9 +38,9 @@ app.use("/utils", getStudentPerCourseRoute)
 app.use("/courses", getAllCoursesRoute)
 app.use("/courses", getOneCourseRoute)
 
-// referral routes
-app.use("/referrals", getAllReferralsRoute)
-app.use("/referrals", getOneReferralRoute)
+// affiliate routes
+app.use("/affiliates", getAllReferralsRoute)
+app.use("/affiliates", getOneReferralRoute)
 
 // listening
 const startServer = async () => {

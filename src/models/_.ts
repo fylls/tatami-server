@@ -1,4 +1,10 @@
 import mongoose from "mongoose"
+import Lesson from "./Lesson"
+import Course from "./Course"
+import Affiliate from "./Affiliate"
+import Student from "./Student"
+import Teacher from "./Teacher"
+
 const ObjectId = mongoose.Types.ObjectId
 
 /*================ teachers ================*/
@@ -68,9 +74,9 @@ interface ILesson {
 	createdAt?: Date
 }
 
-/*==================== influencers ====================*/
+/*==================== affiliates ====================*/
 
-interface IInfluencer {
+interface IAffiliate {
 	isActive: boolean
 	username: string
 	name: string
@@ -92,4 +98,16 @@ interface IInfluencer {
 
 /*======================================================*/
 
-export { ITeacher, IStudent, ICourseInfo, ICourse, ILesson, IInfluencer }
+export {
+	Teacher,
+	ITeacher,
+	Student,
+	IStudent,
+	ICourseInfo,
+	Course,
+	ICourse,
+	Lesson,
+	ILesson,
+	Affiliate,
+	IAffiliate,
+}

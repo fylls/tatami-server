@@ -27,7 +27,7 @@ router.post("/onboardAffiliate", async (req, res) => {
 		// here you can fill what you have already collected
 		const account = await stripe.accounts.create({
 			type: "custom",
-			email: "jenny.rosen@example.com", // influencer.email || ""
+			email: "jenny.rosen@example.com", // affiliate.email || ""
 			capabilities: {
 				card_payments: { requested: true },
 				transfers: { requested: true },

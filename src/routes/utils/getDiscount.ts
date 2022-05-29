@@ -15,12 +15,17 @@ export default router
  */
 
 router.get("/getDiscount/:refCode", async (req: Request, res: Response) => {
-	// extract parameters
-	const code = req.params.refCode
+	try {
+		// extract parameters
+		const code = req.params.refCode
 
-	// check if req.body is present
-	if (!code) return res.status(400).json("referral code is missing")
+		// check if req.body is present
+		if (!code) return res.status(400).json("referral code is missing")
 
-	// implementation on /utils
-	return res.json(await getDiscount(code))
+		// implementation on /utils
+		return res.json(await getDiscount(code))
+	} catch (err: any) {
+		console.error(err.message)
+		res.status(500).send("Server Error")
+	}
 })

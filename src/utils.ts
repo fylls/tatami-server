@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { Influencer } from "./models/_database"
+import { Affiliate } from "./models/_"
 
 // check if 2 objects are equal between fields
 const objEqual = (x: any, y: any): boolean => {
@@ -24,15 +24,15 @@ const checkMail = (email: string): boolean => {
 
 // if the referral code is still valid it returns true, otherwise it returns false
 const checkReferral = async (code: string): Promise<boolean> => {
-	const influencer = await Influencer.findOne({ code })
-	if (influencer && influencer.isActive) return true
+	const affiliate = await Affiliate.findOne({ code })
+	if (affiliate && affiliate.isActive) return true
 	return false
 }
 
 // return discount related to referral code. returns 0 if no discount
 const getDiscount = async (code: string): Promise<number> => {
-	const influencer = await Influencer.findOne({ code })
-	if (influencer && influencer.isActive) return influencer.discount
+	const affiliate = await Affiliate.findOne({ code })
+	if (affiliate && affiliate.isActive) return affiliate.discount
 	else return 0
 }
 
@@ -40,7 +40,7 @@ const getDiscount = async (code: string): Promise<number> => {
 const getAmount = async (cost: number, code: string): Promise<number> => {
 	const discount = await getDiscount(code)
 	if (discount === 0) return cost
-	else return Math.round(cost * (1 - discount))
+	else return Math.round(cost - discount)
 }
 
 // used by stripe (code at https://cutt.ly/stripedocs)
@@ -57,18 +57,7 @@ const stripeResponse = (intent: any): any => {
 	else return { error: "Invalid PaymentIntent status" }
 }
 
-// returns in an array all the args of a function
-// prettier-ignore
-const getFunctionArgs = (func: any): string[] => {
-	const args = func.toString().match(/function\s.*?\(([^)]*)\)/)[1]
-	return args
-		.split(",")
-		.map( (arg: any) => { return arg.replace(/\/\*.*\*\//, "").trim()})
-		.filter(function (arg: any) {return arg})
-}
-
-// check if all environment variables are defined
-// TODO is there a more elegant way to implement it?
+// check if all environment variables are defined //TODO prettier
 const checkEnv = (
 	PORT: any,
 	NODE_ENV: string,

@@ -1,16 +1,16 @@
 import { Schema, model } from "mongoose"
-import { IInfluencer } from "./_interfaces"
-import { INFLUENCER_ARRAY } from "../const"
+import { IAffiliate } from "./_"
+import { AFFILIATE_ARRAY } from "../const"
 
 const ObjectId = Schema.Types.ObjectId
 
-const influencerSchema = new Schema<IInfluencer>(
+const affiliateSchema = new Schema<IAffiliate>(
 	{
 		isActive: { type: Boolean, required: true },
 		username: { type: String, required: true, unique: true },
 		name: { type: String, required: true, unique: true },
 		email: { type: String, required: true },
-		type: { type: String, required: true, enum: INFLUENCER_ARRAY },
+		type: { type: String, required: true, enum: AFFILIATE_ARRAY },
 		code: { type: String, required: true, unique: true },
 		notes: { type: String },
 		cut: { type: Number, required: true, min: 0, max: 1, default: 0 },
@@ -25,7 +25,7 @@ const influencerSchema = new Schema<IInfluencer>(
 	{ versionKey: false, timestamps: true }
 )
 
-export = model<IInfluencer>("influencers", influencerSchema)
+export = model<IAffiliate>("affiliates", affiliateSchema)
 
 /*
 

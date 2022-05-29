@@ -1,4 +1,4 @@
-import { Student, Course, Influencer, Cohort } from "../../models/_database"
+import { Student, Course, Affiliate, Cohort } from "../../models/_"
 import { BASE_COACH, MAX_STUDENTS, STRIPE_KEY } from "../../const"
 import { stripeResponse, checkMail, getAmount } from "../../utils"
 import { Request, Response, Router } from "express"
@@ -102,7 +102,7 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 					course: course.id,
 					mainTeacher: BASE_COACH, //TODO this has to be made dynamic
 					students: [user.id],
-					lectures: [],
+					lessons: [],
 				})
 
 				// save cohort in DB
@@ -128,7 +128,7 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 					course: course.id,
 					mainTeacher: BASE_COACH, //TODO this has to be made dynamic
 					students: [user.id],
-					lectures: [],
+					lessons: [],
 				})
 
 				// save cohort in DB
@@ -190,10 +190,10 @@ router.post("/buyCourse", async (req: Request, res: Response) => {
 
 			/*===================================================================*/
 
-			// find influencer (has to exist since it has been checked before)
-			const i = await Influencer.findOne({ code: referral })
+			// find affiliate (has to exist since it has been checked before)
+			const i = await Affiliate.findOne({ code: referral })
 
-			// update influencer, check for duplicate
+			// update affiliate, check for duplicate
 			if (i && i.isActive && !i.students.includes(user.id)) {
 				i.students.push(user.id)
 				i.amountOwed += course.basePrice * i.cut

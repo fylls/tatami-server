@@ -1,7 +1,7 @@
 // this file helps frontend developers use and understand the APIs
 import axios from "axios"
 import { NODE_ENV } from "../const"
-import { ICourse, IInfluencer } from "../models/_interfaces"
+import { ICourse, IAffiliate } from "../models/_"
 
 // prettier-ignore
 const PROXY = (NODE_ENV === "live") ? "https://api.tatami.gg" : "http://localhost:6969"
@@ -49,19 +49,19 @@ const getOneCourse = async (courseID: string): Promise<ICourse | null> => {
 	}
 }
 
-// referrals API
-const getAllReferrals = async (): Promise<IInfluencer[] | null> => {
+// affiliates API
+const getAllAffiliates = async (): Promise<IAffiliate[] | null> => {
 	try {
-		return await axios.get(`${PROXY}/referrals`)
+		return await axios.get(`${PROXY}/affiliates`)
 	} catch (err) {
 		console.log(err)
 		return null
 	}
 }
 
-const GetOneReferral = async (refCode: string): Promise<IInfluencer | null> => {
+const GetOneAffiliate = async (refCode: string): Promise<IAffiliate | null> => {
 	try {
-		return await axios.get(`${PROXY}/referrals/${refCode}`)
+		return await axios.get(`${PROXY}/affiliates/${refCode}`)
 	} catch (err) {
 		console.log("err")
 		return null
@@ -69,16 +69,16 @@ const GetOneReferral = async (refCode: string): Promise<IInfluencer | null> => {
 }
 
 // utils API
-const checkReferral = async (refCode: string): Promise<boolean> => {
+const checkAffiliateCode = async (refCode: string): Promise<boolean> => {
 	try {
-		return await axios.get(`${PROXY}/utils/checkReferral/${refCode}`)
+		return await axios.get(`${PROXY}/utils/checkCode/${refCode}`)
 	} catch (err) {
 		console.log("err")
 		return false
 	}
 }
 
-const getDiscount = async (refCode: string): Promise<number> => {
+const getAffiliateDiscount = async (refCode: string): Promise<number> => {
 	try {
 		return await axios.get(`${PROXY}/utils/getDiscount/${refCode}`)
 	} catch (err) {
