@@ -4,7 +4,7 @@ import { connectDB } from "./db"
 import { PORT } from "./const"
 import cors from "cors"
 
-// init server
+// server initialization
 const app: Application = express()
 
 // server configs
@@ -17,9 +17,9 @@ app.get("/", (req: Request, res: Response) => res.send("Tatami API endpoint"))
 // routes
 //import buyCourseRoute from "./routes/stripe/buyCourse"
 //import onboardAffiliateRoute from "./routes/stripe/onboardAffiliate"
-import checkReferralRoute from "./routes/utils/checkReferral"
-import getDiscountRoute from "./routes/utils/getDiscount"
-import getStudentPerCourseRoute from "./routes/utils/studentsPerCourse"
+import checkReferralRoute from "./routes/affiliates/checkReferral"
+import getDiscountRoute from "./routes/affiliates/getDiscount"
+import getStudentPerCourseRoute from "./routes/lessons/studentPerLesson"
 import getAllCoursesRoute from "./routes/courses/getAll"
 import getOneCourseRoute from "./routes/courses/getOne"
 import getAllReferralsRoute from "./routes/affiliates/getAll"

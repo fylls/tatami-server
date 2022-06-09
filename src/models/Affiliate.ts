@@ -6,11 +6,12 @@ const ObjectId = Schema.Types.ObjectId
 
 const affiliateSchema = new Schema<IAffiliate>(
 	{
+		type: "Affiliate",
 		isActive: { type: Boolean, required: true },
 		username: { type: String, required: true, unique: true },
 		name: { type: String, required: true, unique: true },
 		email: { type: String, required: true },
-		type: { type: String, required: true, enum: AFFILIATE_ARRAY },
+		category: { type: String, required: true, enum: AFFILIATE_ARRAY },
 		code: { type: String, required: true, unique: true },
 		notes: { type: String },
 		cut: { type: Number, required: true, min: 0, max: 1, default: 0 },

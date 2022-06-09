@@ -1,3 +1,4 @@
+// dependencies
 import { stringToId, checkEnv, getDbName } from "./utils"
 import dotenv from "dotenv"
 
@@ -16,16 +17,7 @@ const GAME_ARRAY = [
 	"sc2",
 ]
 
-const AFFILIATE_ARRAY = [
-	"tatami",
-	"e-girl",
-	"streamer",
-	"youtuber",
-	"discord-admin",
-	"reddit-admin",
-	"facebook-page",
-	"instagram-page",
-]
+const AFFILIATE_ARRAY = ["tatami", "e-girl", "streamer", "youtuber", "admin"]
 
 const LANGUAGE_ARRAY = [
 	"italian",

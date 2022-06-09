@@ -14,6 +14,8 @@ export default router
  *
  */
 
+// TODO does not work anymore (new DB design)
+
 router.get("/students/:courseID", async (req: Request, res: Response) => {
 	// extract parameters
 	const course_id = req.params.courseID

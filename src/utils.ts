@@ -1,9 +1,25 @@
+// dependencies
 import mongoose from "mongoose"
-import { Affiliate } from "./models/_"
+import { Affiliate, ICourseInfo } from "./models/_"
 
 // check if 2 objects are equal between fields
 const objEqual = (x: any, y: any): boolean => {
 	return JSON.stringify(x) === JSON.stringify(y)
+}
+
+// check if object implements ICourseInfo interface
+function isCourseInfo(obj: any): obj is ICourseInfo {
+	return "title" in obj && "description" in obj
+}
+
+// check if array contains only strings
+const containsOnlyStrings = (arr: any[]): boolean => {
+	return arr.every((i: any): boolean => typeof i === "string")
+}
+
+// check if array contains only CourseInfo
+const containsOnlyCourseInfos = (arr: any[]): boolean => {
+	return arr.every((i: any): boolean => isCourseInfo(i))
 }
 
 // translate string to mongodb "ObjectId" type
@@ -87,4 +103,7 @@ export {
 	getDiscount,
 	getAmount,
 	stripeResponse,
+	isCourseInfo,
+	containsOnlyCourseInfos,
+	containsOnlyStrings,
 }

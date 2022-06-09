@@ -5,6 +5,7 @@ const ObjectId = Schema.Types.ObjectId
 
 const studentSchema = new Schema<IStudent>(
 	{
+		type: "Student",
 		name: { type: String, required: true },
 		email: { type: String, required: true, unique: true },
 		lessons: [{ type: ObjectId, ref: "courses" }],

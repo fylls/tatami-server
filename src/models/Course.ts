@@ -14,6 +14,7 @@ const courseInfoSchema = new Schema<ICourseInfo>(
 
 const courseSchema = new Schema<ICourse>(
 	{
+		type: "Course",
 		slug: { type: String, required: true, unique: true },
 		game: { type: String, required: true, enum: GAME_ARRAY },
 		title: { type: String, required: true },

@@ -6,6 +6,7 @@ const ObjectId = Schema.Types.ObjectId
 
 const teacherSchema = new Schema<ITeacher>(
 	{
+		type: "Teacher",
 		name: { type: String, required: true },
 		username: { type: String, required: true, unique: true },
 		description: { type: String, required: true },

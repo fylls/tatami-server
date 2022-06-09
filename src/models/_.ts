@@ -10,6 +10,7 @@ const ObjectId = mongoose.Types.ObjectId
 /*================ teachers ================*/
 
 interface ITeacher {
+	type: "Teacher"
 	name: string
 	username: string
 	description: string
@@ -31,6 +32,7 @@ interface ITeacher {
 /*================ students ================*/
 
 interface IStudent {
+	type: "Student"
 	name: string
 	email: string
 	lessons: typeof ObjectId[]
@@ -47,15 +49,16 @@ interface ICourseInfo {
 }
 
 interface ICourse {
+	type: "Course"
 	slug: string
 	game: string
 	title: string
 	description: string
-	image?: string
-	thumbnail?: string
-	info: ICourseInfo[]
-	lessons: typeof ObjectId[]
-	students: typeof ObjectId[]
+	image: string
+	thumbnail: string
+	info?: ICourseInfo[]
+	lessons?: typeof ObjectId[]
+	students?: typeof ObjectId[]
 	updatedAt?: Date
 	createdAt?: Date
 }
@@ -63,6 +66,7 @@ interface ICourse {
 /*==================== lessons ====================*/
 
 interface ILesson {
+	type: "Lesson"
 	when: Date
 	title: string
 	game: string
@@ -77,20 +81,21 @@ interface ILesson {
 /*==================== affiliates ====================*/
 
 interface IAffiliate {
+	type: "Affiliate"
 	isActive: boolean
 	username: string
-	name: string
+	name?: string
 	email: string
-	type: string
+	category: string
 	code: string
-	notes: string
+	notes?: string
 	cut: number
 	discount: number
-	upfrontCost: number
-	amountOwed: number
-	totalRevenue: number
-	totalPaid: number
-	students: typeof ObjectId[]
+	upfrontCost?: number
+	amountOwed?: number
+	totalRevenue?: number
+	totalPaid?: number
+	students?: typeof ObjectId[]
 	lastPaid?: Date
 	updatedAt?: Date
 	createdAt?: Date
@@ -103,9 +108,9 @@ export {
 	ITeacher,
 	Student,
 	IStudent,
-	ICourseInfo,
 	Course,
 	ICourse,
+	ICourseInfo,
 	Lesson,
 	ILesson,
 	Affiliate,
