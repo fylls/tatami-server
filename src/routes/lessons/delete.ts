@@ -30,6 +30,6 @@ router.delete("/:lessonID", async (req: Request, res: Response) => {
 		await lesson.remove()
 		return res.json("lesson removed")
 	} catch (error: any) {
-		return res.status(500).send("server error")
+		return res.status(500).send(error.message)
 	}
 })

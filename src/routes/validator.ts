@@ -25,9 +25,7 @@ const affiliateMandatory = [
 		.isFloat({ min: 0 })
 		.withMessage("discount must be an integer >= 0"),
 	body("category")
-		.optional({ checkFalsy: true })
-		.isString()
-		.custom(x => !AFFILIATE_ARRAY.includes(x))
+		.custom(x => AFFILIATE_ARRAY.includes(x))
 		.withMessage("category must be a string defined in AFFILIATE_ARRAY"),
 	body("upfrontCost")
 		.optional({ checkFalsy: true })
@@ -47,7 +45,7 @@ const affiliateMandatory = [
 		.withMessage("totalPaid must be a number between 0 and 1"),
 	body("students")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("students must be an array of objectIDs"),
 	body("lastPaid")
 		.optional({ checkFalsy: true })
@@ -77,7 +75,7 @@ const affiliateOptional = [
 	body("category")
 		.optional({ checkFalsy: true })
 		.isString()
-		.custom(x => !AFFILIATE_ARRAY.includes(x))
+		.custom(x => AFFILIATE_ARRAY.includes(x))
 		.withMessage("category must be a string defined in AFFILIATE_ARRAY"),
 	body("upfrontCost")
 		.optional({ checkFalsy: true })
@@ -97,7 +95,7 @@ const affiliateOptional = [
 		.withMessage("totalPaid must be a number between 0 and 1"),
 	body("students")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("students must be an array of objectIDs"),
 	body("lastPaid")
 		.optional({ checkFalsy: true })
@@ -116,19 +114,19 @@ const courseMandatory = [
 		.withMessage("No spaces are allowed in the slug"),
 	body("game")
 		.isString()
-		.custom(x => !GAME_ARRAY.includes(x))
+		.custom(x => GAME_ARRAY.includes(x))
 		.withMessage("game must be a string defined in GAME_ARRAY"),
 	body("lessons")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("lessons must be an array of objectIDs"),
 	body("students")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("students must be an array of objectIDs"),
 	body("info")
 		.optional({ checkFalsy: true })
-		.custom(x => !containsOnlyCourseInfos(x))
+		.custom(x => containsOnlyCourseInfos(x))
 		.withMessage("info must be an array of objectIDs"),
 ]
 
@@ -145,19 +143,19 @@ const courseOptional = [
 	body("game")
 		.optional({ checkFalsy: true })
 		.isString()
-		.custom(x => !GAME_ARRAY.includes(x))
+		.custom(x => GAME_ARRAY.includes(x))
 		.withMessage("game must be a string defined in GAME_ARRAY"),
 	body("lessons")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("lessons must be an array of objectIDs"),
 	body("students")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("students must be an array of objectIDs"),
 	body("info")
 		.optional({ checkFalsy: true })
-		.custom(x => !containsOnlyCourseInfos(x))
+		.custom(x => containsOnlyCourseInfos(x))
 		.withMessage("info must be an array of objectIDs"),
 ]
 
@@ -168,11 +166,11 @@ const LessonMandatory = [
 	body("course").isString(),
 	body("teacher").isString(),
 	body("game")
-		.custom(x => !GAME_ARRAY.includes(x))
+		.custom(x => GAME_ARRAY.includes(x))
 		.withMessage("category must be a string defined in AFFILIATE_ARRAY"),
 	body("students")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("students must be an array of objectIDs"),
 ]
 
@@ -184,11 +182,11 @@ const LessonOptional = [
 	body("teacher").optional({ checkFalsy: true }).isString(),
 	body("game")
 		.optional({ checkFalsy: true })
-		.custom(x => !GAME_ARRAY.includes(x))
+		.custom(x => GAME_ARRAY.includes(x))
 		.withMessage("category must be a string defined in AFFILIATE_ARRAY"),
 	body("students")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("students must be an array of objectIDs"),
 ]
 
@@ -208,15 +206,15 @@ const teacherMandatory = [
 		.custom(x => !/\s/.test(x))
 		.withMessage("No spaces are allowed in the username"),
 	body("languages")
-		.custom(x => !checkArray(x, LANGUAGE_ARRAY))
+		.custom(x => checkArray(x, LANGUAGE_ARRAY))
 		.withMessage("category must be a string defined in AFFILIATE_ARRAY"),
 	body("games")
 		.optional({ checkFalsy: true })
-		.custom(x => !checkArray(x, GAME_ARRAY))
+		.custom(x => checkArray(x, GAME_ARRAY))
 		.withMessage("category must be a string defined in AFFILIATE_ARRAY"),
 	body("lessons")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("lessons must be an array of objectIDs"),
 ]
 
@@ -238,20 +236,21 @@ const teacherOptional = [
 		.withMessage("No spaces are allowed in the username"),
 	body("languages")
 		.optional({ checkFalsy: true })
-		.custom(x => !checkArray(x, LANGUAGE_ARRAY))
+		.custom(x => checkArray(x, LANGUAGE_ARRAY))
 		.withMessage("category must be a string defined in AFFILIATE_ARRAY"),
 	body("games")
 		.optional({ checkFalsy: true })
-		.custom(x => !checkArray(x, GAME_ARRAY))
+		.custom(x => checkArray(x, GAME_ARRAY))
 		.withMessage("category must be a string defined in AFFILIATE_ARRAY"),
 	body("lessons")
 		.optional({ checkFalsy: true })
-		.custom(arr => !containsOnlyStrings(arr))
+		.custom(arr => containsOnlyStrings(arr))
 		.withMessage("lessons must be an array of objectIDs"),
 ]
 
 export {
 	validationResult,
+	body,
 	affiliateMandatory,
 	affiliateOptional,
 	courseMandatory,

@@ -23,7 +23,7 @@ router.put(
 	teacherOptional,
 	async (req: Request, res: Response) => {
 		// check errors in request body
-		const errors = validationResult(req.body)
+		const errors = validationResult(req)
 		if (!errors.isEmpty()) return res.status(400).json(errors.array())
 
 		// get parameter & return error if missing
@@ -55,7 +55,7 @@ router.put(
 		try {
 			// build object
 			const teacherObj: ITeacher = {
-				type: "Teacher",
+				type: "teacher",
 				name: name || oldTeacher.name,
 				username: username || oldTeacher.username,
 				description: description || oldTeacher.description,
@@ -83,7 +83,7 @@ router.put(
 			return res.json(updatedTeacher)
 		} catch (error: any) {
 			console.error(error.message)
-			return res.status(500).send("server error")
+			return res.status(500).send(error.message)
 		}
 	}
 )

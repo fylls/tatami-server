@@ -19,7 +19,7 @@ export default router
 
 router.post("", affiliateMandatory, async (req: Request, res: Response) => {
 	// check errors in request body
-	const errors = validationResult(req.body)
+	const errors = validationResult(req)
 	if (!errors.isEmpty()) return res.status(400).json(errors.array())
 
 	// destructure body object
@@ -41,9 +41,14 @@ router.post("", affiliateMandatory, async (req: Request, res: Response) => {
 		lastPaid,
 	} = req.body
 
+	// check duplicate
+	const index1 = await Affiliate.findOne({ username })
+	const index2 = await Affiliate.findOne({ code })
+	if (index1 || index2) return res.status(500).send("already exists")
+
 	// build object
 	const affiliateObject: IAffiliate = {
-		type: "Affiliate",
+		type: "affiliate",
 		isActive,
 		username,
 		email,
@@ -69,6 +74,7 @@ router.post("", affiliateMandatory, async (req: Request, res: Response) => {
 		await newAffiliate.save()
 		return res.json(newAffiliate)
 	} catch (error: any) {
-		return res.status(500).send("server error")
+		console.log(error)
+		return res.status(500).send(error.message)
 	}
 })

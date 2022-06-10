@@ -19,7 +19,7 @@ export default router
 
 router.post("", LessonMandatory, async (req: Request, res: Response) => {
 	// check errors in request body
-	const errors = validationResult(req.body)
+	const errors = validationResult(req)
 	if (!errors.isEmpty()) return res.status(400).json(errors.array())
 
 	// destructure body object
@@ -28,7 +28,7 @@ router.post("", LessonMandatory, async (req: Request, res: Response) => {
 
 	// build object
 	const lessonObject: ILesson = {
-		type: "Lesson",
+		type: "lesson",
 		when,
 		title,
 		game,
@@ -46,6 +46,6 @@ router.post("", LessonMandatory, async (req: Request, res: Response) => {
 		await newLesson.save()
 		return res.json(newLesson)
 	} catch (error: any) {
-		return res.status(500).send("server error")
+		return res.status(500).send(error.message)
 	}
 })

@@ -27,10 +27,10 @@ router.delete("/:refCode", async (req: Request, res: Response) => {
 		const affiliate = await Affiliate.findOne({ code: refCode })
 		if (!affiliate) return res.status(404).json("affiliate not found")
 
-		// remove restaurant
+		// remove affiliate
 		await affiliate.remove()
 		return res.json("affiliate removed")
 	} catch (error: any) {
-		return res.status(500).send("server error")
+		return res.status(500).send(error.message)
 	}
 })

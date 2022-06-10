@@ -6,7 +6,7 @@ const ObjectId = Schema.Types.ObjectId
 
 const lessonSchema = new Schema<ILesson>(
 	{
-		type: "Lesson",
+		type: { type: String, default: "lesson" },
 		when: { type: Date, required: true },
 		title: { type: String, required: true },
 		game: { type: String, required: true, enum: GAME_ARRAY },

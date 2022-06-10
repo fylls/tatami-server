@@ -32,6 +32,6 @@ router.get("/:lessonID", async (req: Request, res: Response) => {
 		return res.json(lesson)
 	} catch (error: any) {
 		console.error(error.message)
-		return res.status(500).send("server error")
+		return res.status(500).send(error.message)
 	}
 })

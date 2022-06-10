@@ -17,7 +17,15 @@ const GAME_ARRAY = [
 	"sc2",
 ]
 
-const AFFILIATE_ARRAY = ["tatami", "e-girl", "streamer", "youtuber", "admin"]
+const AFFILIATE_ARRAY = [
+	"tatami",
+	"e-girl",
+	"streamer",
+	"youtuber",
+	"admin",
+	"coach",
+	"test",
+]
 
 const LANGUAGE_ARRAY = [
 	"italian",

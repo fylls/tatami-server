@@ -32,6 +32,6 @@ router.get("/:teacherID", async (req: Request, res: Response) => {
 		return res.json(teacher)
 	} catch (error: any) {
 		console.error(error.message)
-		return res.status(500).send("server error")
+		return res.status(500).send(error.message)
 	}
 })

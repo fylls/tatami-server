@@ -19,7 +19,7 @@ export default router
 
 router.post("", courseMandatory, async (req: Request, res: Response) => {
 	// check errors in request body
-	const errors = validationResult(req.body)
+	const errors = validationResult(req)
 	if (!errors.isEmpty()) return res.status(400).json(errors.array())
 
 	// destructure body object
@@ -37,7 +37,7 @@ router.post("", courseMandatory, async (req: Request, res: Response) => {
 
 	// build object
 	const courseObject: ICourse = {
-		type: "Course",
+		type: "course",
 		slug,
 		game,
 		title,
@@ -57,6 +57,6 @@ router.post("", courseMandatory, async (req: Request, res: Response) => {
 		await newCourse.save()
 		return res.json(newCourse)
 	} catch (error: any) {
-		return res.status(500).send("server error")
+		return res.status(500).send(error.message)
 	}
 })

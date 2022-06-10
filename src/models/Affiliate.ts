@@ -6,22 +6,22 @@ const ObjectId = Schema.Types.ObjectId
 
 const affiliateSchema = new Schema<IAffiliate>(
 	{
-		type: "Affiliate",
+		type: { type: String, default: "affiliate" },
 		isActive: { type: Boolean, required: true },
 		username: { type: String, required: true, unique: true },
-		name: { type: String, required: true, unique: true },
-		email: { type: String, required: true },
-		category: { type: String, required: true, enum: AFFILIATE_ARRAY },
+		name: { type: String },
+		email: { type: String, required: true, unique: true },
+		category: { type: String, required: true, enum: AFFILIATE_ARRAY }, //TODO Strangely does not work
 		code: { type: String, required: true, unique: true },
 		notes: { type: String },
 		cut: { type: Number, required: true, min: 0, max: 1, default: 0 },
 		discount: { type: Number, required: true, default: 0 },
-		upfrontCost: { type: Number, required: true, default: 0 },
-		amountOwed: { type: Number, required: true, default: 0 },
-		totalRevenue: { type: Number, required: true, default: 0 },
-		totalPaid: { type: Number, required: true, default: 0 },
+		upfrontCost: { type: Number, default: 0 },
+		amountOwed: { type: Number, default: 0 },
+		totalRevenue: { type: Number, default: 0 },
+		totalPaid: { type: Number, default: 0 },
 		students: [{ type: ObjectId, ref: "students" }],
-		lastPaid: { type: Date, required: true },
+		lastPaid: { type: Date },
 	},
 	{ versionKey: false, timestamps: true }
 )

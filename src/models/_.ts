@@ -10,7 +10,7 @@ const ObjectId = mongoose.Types.ObjectId
 /*================ teachers ================*/
 
 interface ITeacher {
-	type: "Teacher"
+	type: "teacher"
 	name?: string
 	username: string
 	description: string
@@ -32,7 +32,7 @@ interface ITeacher {
 /*================ students ================*/
 
 interface IStudent {
-	type: "Student"
+	type: "student"
 	name: string
 	email: string
 	lessons: typeof ObjectId[]
@@ -49,7 +49,7 @@ interface ICourseInfo {
 }
 
 interface ICourse {
-	type: "Course"
+	type: "course"
 	slug: string
 	game: string
 	title: string
@@ -66,7 +66,7 @@ interface ICourse {
 /*==================== lessons ====================*/
 
 interface ILesson {
-	type: "Lesson"
+	type: "lesson"
 	when: Date
 	title: string
 	game: string
@@ -81,7 +81,7 @@ interface ILesson {
 /*==================== affiliates ====================*/
 
 interface IAffiliate {
-	type: "Affiliate"
+	type: "affiliate"
 	isActive: boolean
 	username: string
 	name?: string

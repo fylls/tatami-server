@@ -7,8 +7,18 @@ const objEqual = (x: any, y: any): boolean => {
 	return JSON.stringify(x) === JSON.stringify(y)
 }
 
+// check if req.body is empty
+const checkBody = (body: any): boolean => {
+	return body.constructor === Object && Object.keys(body).length === 0
+}
+
+// check if string is mongoDB objectID
+const isId = (id: string): boolean => {
+	return mongoose.isValidObjectId(id)
+}
+
 // check if object implements ICourseInfo interface
-function isCourseInfo(obj: any): obj is ICourseInfo {
+const isCourseInfo = (obj: any): obj is ICourseInfo => {
 	return "title" in obj && "description" in obj
 }
 
@@ -102,6 +112,8 @@ const checkEnv = (
 
 export {
 	objEqual,
+	checkBody,
+	isId,
 	checkArray,
 	checkEnv,
 	getDbName,

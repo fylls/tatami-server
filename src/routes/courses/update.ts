@@ -23,7 +23,7 @@ router.put(
 	courseOptional,
 	async (req: Request, res: Response) => {
 		// check errors in request body
-		const errors = validationResult(req.body)
+		const errors = validationResult(req)
 		if (!errors.isEmpty()) return res.status(400).json(errors.array())
 
 		// get parameter & return error if missing
@@ -50,7 +50,7 @@ router.put(
 		try {
 			// build object
 			const courseObj: ICourse = {
-				type: "Course",
+				type: "course",
 				slug: slug || oldCourse.slug,
 				game: game || oldCourse.game,
 				title: title || oldCourse.title,
@@ -73,7 +73,7 @@ router.put(
 			return res.json(updatedCourse)
 		} catch (error: any) {
 			console.error(error.message)
-			return res.status(500).send("server error")
+			return res.status(500).send(error.message)
 		}
 	}
 )
