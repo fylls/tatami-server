@@ -11,13 +11,13 @@ const ObjectId = mongoose.Types.ObjectId
 
 interface ITeacher {
 	type: "Teacher"
-	name: string
+	name?: string
 	username: string
 	description: string
 	email: string
 	languages: string[]
 	games: string[]
-	lessons: typeof ObjectId[]
+	lessons?: typeof ObjectId[]
 	image?: string
 	stripe?: string
 	discord?: string
@@ -73,7 +73,7 @@ interface ILesson {
 	maxStudents: number
 	course: typeof ObjectId
 	teacher: typeof ObjectId
-	students: typeof ObjectId[]
+	students?: typeof ObjectId[]
 	updatedAt?: Date
 	createdAt?: Date
 }

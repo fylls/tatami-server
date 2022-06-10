@@ -6,6 +6,8 @@ import { affiliateMandatory, validationResult } from "../validator"
 const router = Router()
 export default router
 
+// TODO implement a way to make this route private
+
 /**
  *
  * @route       POST api.tatami.gg/affiliates
@@ -15,9 +17,7 @@ export default router
  *
  */
 
-// TODO implement a way to make this route private
-
-router.post("/", affiliateMandatory, async (req: Request, res: Response) => {
+router.post("", affiliateMandatory, async (req: Request, res: Response) => {
 	// check errors in request body
 	const errors = validationResult(req.body)
 	if (!errors.isEmpty()) return res.status(400).json(errors.array())
@@ -67,8 +67,8 @@ router.post("/", affiliateMandatory, async (req: Request, res: Response) => {
 	try {
 		const newAffiliate = new Affiliate(affiliateObject)
 		await newAffiliate.save()
-		res.json(newAffiliate)
-	} catch (err) {
-		res.status(500).send("Server Error")
+		return res.json(newAffiliate)
+	} catch (error: any) {
+		return res.status(500).send("server error")
 	}
 })

@@ -15,10 +15,10 @@ export default router
 
 router.get("", async (req: Request, res: Response) => {
 	try {
-		const courseArray: ICourse[] = await Course.find()
+		const courseArray: ICourse[] | [] = await Course.find()
 		return res.json(courseArray)
-	} catch (err: any) {
-		console.error(err.message)
-		res.status(500).send("Server Error")
+	} catch (error: any) {
+		console.error(error.message)
+		return res.status(500).send("server error")
 	}
 })

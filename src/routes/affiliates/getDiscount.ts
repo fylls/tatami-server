@@ -24,8 +24,8 @@ router.get("/getDiscount/:refCode", async (req: Request, res: Response) => {
 
 		// implementation on /utils
 		return res.json(await getDiscount(code))
-	} catch (err: any) {
-		console.error(err.message)
-		res.status(500).send("Server Error")
+	} catch (error: any) {
+		console.error(error.message)
+		return res.status(500).send("server error")
 	}
 })

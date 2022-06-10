@@ -30,8 +30,8 @@ router.get("/:courseID", async (req: Request, res: Response) => {
 
 		// return asked course
 		return res.json(course)
-	} catch (err: any) {
-		console.error(err.message)
-		res.status(500).send("Server Error")
+	} catch (error: any) {
+		console.error(error.message)
+		return res.status(500).send("server error")
 	}
 })

@@ -3,6 +3,8 @@ import axios from "axios"
 import { NODE_ENV } from "../const"
 import { ICourse, IAffiliate } from "../models/_"
 
+// TODO TO UPDATE
+
 // prettier-ignore
 const PROXY = (NODE_ENV === "live") ? "https://api.tatami.gg" : "http://localhost:6969"
 
@@ -25,8 +27,8 @@ const buyCourse = async (
 			referral,
 		}
 		return await axios.post(`${PROXY}/stripe/buyCourse`, payload)
-	} catch (err) {
-		console.log(err)
+	} catch (error: any) {
+		console.log(error)
 	}
 }
 
@@ -34,8 +36,8 @@ const buyCourse = async (
 const getAllCourses = async (): Promise<ICourse[] | null> => {
 	try {
 		return await axios.get(`${PROXY}/courses`)
-	} catch (err) {
-		console.log(err)
+	} catch (error: any) {
+		console.log(error)
 		return null
 	}
 }
@@ -43,8 +45,8 @@ const getAllCourses = async (): Promise<ICourse[] | null> => {
 const getOneCourse = async (courseID: string): Promise<ICourse | null> => {
 	try {
 		return await axios.get(`${PROXY}/courses/${courseID}`)
-	} catch (err) {
-		console.log("err")
+	} catch (error: any) {
+		console.log(error)
 		return null
 	}
 }
@@ -53,8 +55,8 @@ const getOneCourse = async (courseID: string): Promise<ICourse | null> => {
 const getAllAffiliates = async (): Promise<IAffiliate[] | null> => {
 	try {
 		return await axios.get(`${PROXY}/affiliates`)
-	} catch (err) {
-		console.log(err)
+	} catch (error: any) {
+		console.log(error)
 		return null
 	}
 }
@@ -62,8 +64,8 @@ const getAllAffiliates = async (): Promise<IAffiliate[] | null> => {
 const GetOneAffiliate = async (refCode: string): Promise<IAffiliate | null> => {
 	try {
 		return await axios.get(`${PROXY}/affiliates/${refCode}`)
-	} catch (err) {
-		console.log("err")
+	} catch (error: any) {
+		console.log(error)
 		return null
 	}
 }
@@ -72,8 +74,8 @@ const GetOneAffiliate = async (refCode: string): Promise<IAffiliate | null> => {
 const checkAffiliateCode = async (refCode: string): Promise<boolean> => {
 	try {
 		return await axios.get(`${PROXY}/utils/checkCode/${refCode}`)
-	} catch (err) {
-		console.log("err")
+	} catch (error: any) {
+		console.log(error)
 		return false
 	}
 }
@@ -81,8 +83,8 @@ const checkAffiliateCode = async (refCode: string): Promise<boolean> => {
 const getAffiliateDiscount = async (refCode: string): Promise<number> => {
 	try {
 		return await axios.get(`${PROXY}/utils/getDiscount/${refCode}`)
-	} catch (err) {
-		console.log("err")
+	} catch (error: any) {
+		console.log(error)
 		return 0
 	}
 }
@@ -90,8 +92,8 @@ const getAffiliateDiscount = async (refCode: string): Promise<number> => {
 const getStudentPerCourse = async (courseID: string): Promise<number> => {
 	try {
 		return await axios.get(`${PROXY}/utils/students/${courseID}`)
-	} catch (err) {
-		console.log("err")
+	} catch (error: any) {
+		console.log(error)
 		return 0
 	}
 }

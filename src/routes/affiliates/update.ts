@@ -82,10 +82,10 @@ router.put(
 			)
 
 			// return affiliate
-			res.json(updatedAffiliate)
-		} catch (err: any) {
-			console.error(err.message)
-			res.status(500).send("Server Error")
+			return res.json(updatedAffiliate)
+		} catch (error: any) {
+			console.error(error.message)
+			return res.status(500).send("server error")
 		}
 	}
 )

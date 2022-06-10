@@ -12,7 +12,7 @@ app.use(cors())
 app.use(json())
 
 // home route
-app.get("/", (req: Request, res: Response) => res.send("Tatami API endpoint"))
+app.get("", (req: Request, res: Response) => res.send("Tatami API endpoint"))
 
 // routes
 //import buyCourseRoute from "./routes/stripe/buyCourse"
@@ -47,7 +47,7 @@ const startServer = async () => {
 	try {
 		await connectDB()
 		app.listen(PORT, () => console.log(`Server started on PORT: ${PORT}`))
-	} catch (err: any) {
+	} catch (error: any) {
 		console.log(`Unable to connect with DATABASE: ${err}`)
 	}
 }

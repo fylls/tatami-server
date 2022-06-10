@@ -17,6 +17,13 @@ const containsOnlyStrings = (arr: any[]): boolean => {
 	return arr.every((i: any): boolean => typeof i === "string")
 }
 
+// check if array contains only strings inside checkArray
+const checkArray = (baseArray: any[], checkArray: string[]): boolean => {
+	return baseArray.every(
+		(i: any): boolean => typeof i === "string" && checkArray.includes(i)
+	)
+}
+
 // check if array contains only CourseInfo
 const containsOnlyCourseInfos = (arr: any[]): boolean => {
 	return arr.every((i: any): boolean => isCourseInfo(i))
@@ -95,6 +102,7 @@ const checkEnv = (
 
 export {
 	objEqual,
+	checkArray,
 	checkEnv,
 	getDbName,
 	checkMail,

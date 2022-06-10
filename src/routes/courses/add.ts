@@ -6,6 +6,8 @@ import { courseMandatory, validationResult } from "../validator"
 const router = Router()
 export default router
 
+// TODO implement a way to make this route private
+
 /**
  *
  * @route       POST api.tatami.gg/courses
@@ -15,9 +17,7 @@ export default router
  *
  */
 
-// TODO implement a way to make this route private
-
-router.post("/", courseMandatory, async (req: Request, res: Response) => {
+router.post("", courseMandatory, async (req: Request, res: Response) => {
 	// check errors in request body
 	const errors = validationResult(req.body)
 	if (!errors.isEmpty()) return res.status(400).json(errors.array())
@@ -55,8 +55,8 @@ router.post("/", courseMandatory, async (req: Request, res: Response) => {
 	try {
 		const newCourse = new Course(courseObject)
 		await newCourse.save()
-		res.json(newCourse)
-	} catch (err) {
-		res.status(500).send("Server Error")
+		return res.json(newCourse)
+	} catch (error: any) {
+		return res.status(500).send("server error")
 	}
 })
