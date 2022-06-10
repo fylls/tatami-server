@@ -1,5 +1,7 @@
 {
 	"name": "tatami-server",
+	"author": "fyll",
+	"license": "WTFPL",
 	"version": "1.0.0",
 	"description": "I hate gamers",
 	"main": "index.js",
@@ -9,10 +11,9 @@
 		"start": "npx cross-env NODE_ENV=live node dist/app.js",
 		"delete": "rm -rf node_modules/",
 		"update": "rm -rf node_modules/ && npm install -g npm-check-updates && ncu -u && npm install",
-		"zip": "tsc -p . && zip beanstalk.zip -r \"dist/*\" .env package.json package-lock.json .gitignore"
+		"zip": "tsc -p . && zip beanstalk.zip -r \"dist/*\" .env package.json package-lock.json .gitignore",
+		"deploy": "echo lol I still have to implement it, do I look like a devOps a deployment expert to you?"
 	},
-	"author": "fyll",
-	"license": "WTFPL",
 	"dependencies": {
 		"axios": "^0.27.2",
 		"cors": "^2.8.5",

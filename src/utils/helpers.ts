@@ -1,6 +1,6 @@
 // dependencies
 import mongoose from "mongoose"
-import { Affiliate, ICourseInfo } from "./models/_"
+import { Affiliate, ICourseInfo } from "../models/_"
 
 // check if 2 objects are equal between fields
 const objEqual = (x: any, y: any): boolean => {

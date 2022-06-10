@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose"
 import { ITeacher } from "./_"
-import { LANGUAGE_ARRAY, GAME_ARRAY } from "../const"
+import { LANGUAGE_ARRAY, GAME_ARRAY } from "../utils/constants"
 
 const ObjectId = Schema.Types.ObjectId
 

@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { getDiscount } from "../../utils"
+import { getDiscount } from "../../utils/helpers"
 
 // express router
 const router = Router()

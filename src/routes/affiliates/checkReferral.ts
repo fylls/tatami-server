@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { checkReferral } from "../../utils"
+import { checkReferral } from "../../utils/helpers"
 
 // express router
 const router = Router()

@@ -1,4 +1,4 @@
-import { BASE_COACH, MAX_STUDENTS, STRIPE_KEY } from "../../const"
+import { BASE_COACH, MAX_STUDENTS, STRIPE_KEY } from "../../utils/constants"
 import { Request, Response, Router } from "express"
 import Stripe from "stripe"
 

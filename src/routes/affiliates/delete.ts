@@ -19,7 +19,7 @@ export default router
 
 router.delete("/:refCode", async (req: Request, res: Response) => {
 	try {
-		// get parameter & return error if missing
+		// get parameter
 		const refCode = req.params.refCode
 		if (!refCode) return res.status(400).json("refCode is missing")
 

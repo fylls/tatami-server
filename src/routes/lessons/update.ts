@@ -1,8 +1,8 @@
 // dependencies
 import { Request, Response, Router } from "express"
 import { Lesson, ILesson } from "../../models/_"
-import { LessonOptional, validationResult } from "../validator"
-import { isId, checkBody } from "../../utils"
+import { LessonOptional, validationResult } from "../../utils/validators"
+import { isId, checkBody } from "../../utils/helpers"
 
 // express router
 const router = Router()

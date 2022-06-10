@@ -2,7 +2,7 @@
 import express, { Application, json } from "express"
 import { implementRoutes } from "./routing"
 import { connectDB } from "./db"
-import { PORT } from "./const"
+import { PORT } from "./utils/constants"
 import cors from "cors"
 
 // server configs

@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express"
 import { Affiliate, IAffiliate } from "../../models/_"
-import { affiliateMandatory, validationResult } from "../validator"
-import { checkBody } from "../../utils"
+import { affiliateMandatory, validationResult } from "../../utils/validators"
+import { checkBody } from "../../utils/helpers"
 
 // express router
 const router = Router()

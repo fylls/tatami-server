@@ -1,8 +1,8 @@
 // dependencies
 import { Request, Response, Router } from "express"
 import { Affiliate, IAffiliate } from "../../models/_"
-import { affiliateOptional, validationResult } from "../validator"
-import { isId, checkBody } from "../../utils"
+import { affiliateOptional, validationResult } from "../../utils/validators"
+import { isId, checkBody } from "../../utils/helpers"
 
 // express router
 const router = Router()

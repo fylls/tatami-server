@@ -1,6 +1,6 @@
 // dependencies
 import mongoose from "mongoose"
-import { MONGO_URI, DB_NAME } from "./const"
+import { MONGO_URI, DB_NAME } from "./utils/constants"
 
 // opening
 const connectDB = async () => {

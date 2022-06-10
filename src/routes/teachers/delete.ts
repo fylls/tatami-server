@@ -19,7 +19,7 @@ export default router
 
 router.delete("/:teacherID", async (req: Request, res: Response) => {
 	try {
-		// get parameter & return error if missing
+		// get parameter
 		const teacherID = req.params.teacherID
 		if (!teacherID) return res.status(400).json("teacherID is missing")
 

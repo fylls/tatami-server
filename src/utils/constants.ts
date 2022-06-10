@@ -1,5 +1,5 @@
 // dependencies
-import { stringToId, checkEnv, getDbName } from "./utils"
+import { stringToId, checkEnv, getDbName } from "./helpers"
 import dotenv from "dotenv"
 
 const GAME_ARRAY = [

@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express"
 import { Course, ICourse } from "../../models/_"
-import { courseMandatory, validationResult } from "../validator"
-import { checkBody } from "../../utils"
+import { courseMandatory, validationResult } from "../../utils/validators"
+import { checkBody } from "../../utils/helpers"
 
 // express router
 const router = Router()

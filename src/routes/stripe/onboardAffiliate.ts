@@ -1,4 +1,4 @@
-import { STRIPE_KEY } from "../../const"
+import { STRIPE_KEY } from "../../utils/constants"
 import { Request, Response, Router } from "express"
 import Stripe from "stripe"
 

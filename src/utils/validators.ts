@@ -1,12 +1,12 @@
 // dependencies
 import { body, validationResult } from "express-validator"
-import { AFFILIATE_ARRAY, GAME_ARRAY, LANGUAGE_ARRAY } from "../const"
+import { AFFILIATE_ARRAY, GAME_ARRAY, LANGUAGE_ARRAY } from "./constants"
 
 import {
 	containsOnlyCourseInfos,
 	containsOnlyStrings,
 	checkArray,
-} from "../utils"
+} from "./helpers"
 
 const affiliateMandatory = [
 	body("isActive").isBoolean(),

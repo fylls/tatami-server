@@ -1,12 +1,14 @@
 // dependencies
 import { Request, Response, Router } from "express"
 import { Course, ICourse } from "../../models/_"
-import { courseOptional, validationResult } from "../validator"
-import { isId, checkBody } from "../../utils"
+import { courseOptional, validationResult } from "../../utils/validators"
+import { isId, checkBody } from "../../utils/helpers"
 
 // express router
 const router = Router()
 export default router
+
+// TODO implement a way to make this route private
 
 /**
  *
@@ -17,8 +19,6 @@ export default router
  *
  */
 
-// TODO implement a way to make this route private
-
 router.put(
 	"/:courseID",
 	courseOptional,
@@ -28,12 +28,12 @@ router.put(
 		if (!errors.isEmpty()) return res.status(400).json(errors.array())
 		if (checkBody(req.body)) return res.status(400).json("empty body")
 
-		// get parameter & return error if missing
+		// get parameter
 		const courseID = req.params.courseID
 		if (!courseID) return res.status(400).json("courseID is missing")
 		if (!isId(courseID)) return res.status(400).json("invalid id")
 
-		// search for course by ID & return error if  not found
+		// search for course by ID
 		const oldCourse = await Course.findOne({ courseID })
 		if (!oldCourse) return res.status(400).json("course not found")
 
