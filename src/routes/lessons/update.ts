@@ -42,13 +42,13 @@ router.put(
 			// build object
 			const LessonObj: ILesson = {
 				type: "lesson",
-				when: when || oldLesson.when,
-				title: title || oldLesson.title,
-				game: game || oldLesson.game,
-				maxStudents: maxStudents || oldLesson.maxStudents,
-				course: course || oldLesson.course,
-				teacher: teacher || oldLesson.teacher,
-				students: students || oldLesson.students,
+				when: when ?? oldLesson.when,
+				title: title ?? oldLesson.title,
+				game: game ?? oldLesson.game,
+				maxStudents: maxStudents ?? oldLesson.maxStudents,
+				course: course ?? oldLesson.course,
+				teacher: teacher ?? oldLesson.teacher,
+				students: students ?? oldLesson.students,
 			}
 
 			// update object

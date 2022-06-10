@@ -51,15 +51,15 @@ router.put(
 			// build object
 			const courseObj: ICourse = {
 				type: "course",
-				slug: slug || oldCourse.slug,
-				game: game || oldCourse.game,
-				title: title || oldCourse.title,
-				description: description || oldCourse.description,
-				lessons: lessons || oldCourse.lessons,
-				students: students || oldCourse.students,
-				info: info || oldCourse.info,
-				thumbnail: thumbnail || oldCourse.thumbnail,
-				image: image || oldCourse.image,
+				slug: slug ?? oldCourse.slug,
+				game: game ?? oldCourse.game,
+				title: title ?? oldCourse.title,
+				description: description ?? oldCourse.description,
+				lessons: lessons ?? oldCourse.lessons,
+				students: students ?? oldCourse.students,
+				info: info ?? oldCourse.info,
+				thumbnail: thumbnail ?? oldCourse.thumbnail,
+				image: image ?? oldCourse.image,
 			}
 
 			// update object
