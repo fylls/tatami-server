@@ -2,6 +2,7 @@
 import { Request, Response, Router } from "express"
 import { Course, ICourse } from "../../models/_"
 import { courseOptional, validationResult } from "../validator"
+import { isId, checkBody } from "../../utils"
 
 // express router
 const router = Router()
@@ -22,13 +23,15 @@ router.put(
 	"/:courseID",
 	courseOptional,
 	async (req: Request, res: Response) => {
-		// check errors in request body
+		// check errors in body
 		const errors = validationResult(req)
 		if (!errors.isEmpty()) return res.status(400).json(errors.array())
+		if (checkBody(req.body)) return res.status(400).json("empty body")
 
 		// get parameter & return error if missing
 		const courseID = req.params.courseID
 		if (!courseID) return res.status(400).json("courseID is missing")
+		if (!isId(courseID)) return res.status(400).json("invalid id")
 
 		// search for course by ID & return error if  not found
 		const oldCourse = await Course.findOne({ courseID })

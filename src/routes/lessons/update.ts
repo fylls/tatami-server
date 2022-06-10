@@ -2,6 +2,7 @@
 import { Request, Response, Router } from "express"
 import { Lesson, ILesson } from "../../models/_"
 import { LessonOptional, validationResult } from "../validator"
+import { isId, checkBody } from "../../utils"
 
 // express router
 const router = Router()
@@ -22,15 +23,17 @@ router.put(
 	"/:lessonID",
 	LessonOptional,
 	async (req: Request, res: Response) => {
-		// check errors in request body
+		// check errors in body
 		const errors = validationResult(req)
 		if (!errors.isEmpty()) return res.status(400).json(errors.array())
+		if (checkBody(req.body)) return res.status(400).json("empty body")
 
-		// get parameter & return error if missing
+		// get parameter
 		const lessonID = req.params.lessonID
 		if (!lessonID) return res.status(400).json("lessonID is missing")
+		if (!isId(lessonID)) return res.status(400).json("invalid id")
 
-		// search for Lesson by ID & return error if  not found
+		// search for Lesson by ID
 		const oldLesson = await Lesson.findOne({ lessonID })
 		if (!oldLesson) return res.status(400).json("lesson not found")
 

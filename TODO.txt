@@ -1,0 +1,13 @@
+1) implementa stripe onboarding per pagare in modo automatico coach e affiliate
+
+2) implementa stripe per subscription
+
+3) implementa sistema di login
+
+4) testa TUTTE le api (a mano)
+
+5) automatizza il test di tutte le api
+
+6) compartimentalizza utils in functions, constants, validators, modelli (_)
+
+7) perfeziona una API e copiala in tutte le altre (definisci flow per GET, PUT, DELETE)

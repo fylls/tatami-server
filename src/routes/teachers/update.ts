@@ -2,6 +2,7 @@
 import { Request, Response, Router } from "express"
 import { Teacher, ITeacher } from "../../models/_"
 import { teacherOptional, validationResult } from "../validator"
+import { isId, checkBody } from "../../utils"
 
 // express router
 const router = Router()
@@ -22,15 +23,17 @@ router.put(
 	"/:teacherID",
 	teacherOptional,
 	async (req: Request, res: Response) => {
-		// check errors in request body
+		// check errors in body
 		const errors = validationResult(req)
 		if (!errors.isEmpty()) return res.status(400).json(errors.array())
+		if (checkBody(req.body)) return res.status(400).json("empty body")
 
-		// get parameter & return error if missing
+		// get parameter
 		const teacherID = req.params.teacherID
 		if (!teacherID) return res.status(400).json("teacherID is missing")
+		if (!isId(teacherID)) return res.status(400).json("invalid id")
 
-		// search for teacher by ID & return error if  not found
+		// search for teacher by ID
 		const oldTeacher = await Teacher.findOne({ teacherID })
 		if (!oldTeacher) return res.status(400).json("teacher not found")
 
