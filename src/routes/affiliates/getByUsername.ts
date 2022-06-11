@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { Affiliate } from "../../models/_"
+import { Affiliate } from "../../utils/types"
 
 // express router
 const router = Router()
@@ -7,14 +7,14 @@ export default router
 
 /**
  *
- * @route       GET api.tatami.gg/affiliates/:username
+ * @route       GET api.tatami.gg/affiliates/u/:username
  * @desc        return affiliate object given username
  * @access      public
- * @params      username
+ * @params      :username
  *
  */
 
-router.get("/:username", async (req: Request, res: Response) => {
+router.get("/u/:username", async (req: Request, res: Response) => {
 	try {
 		// get parameter
 		const username = req.params.username

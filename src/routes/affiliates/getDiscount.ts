@@ -10,7 +10,7 @@ export default router
  * @route       GET api.tatami.gg/affiliates/getDiscount/:refCode
  * @desc        get discount amount from referral code
  * @access      public
- * @params      refCode
+ * @params      :refCode
  *
  */
 

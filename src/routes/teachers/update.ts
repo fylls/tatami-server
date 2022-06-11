@@ -1,6 +1,6 @@
 // dependencies
 import { Request, Response, Router } from "express"
-import { Teacher, ITeacher } from "../../models/_"
+import { Teacher, ITeacher } from "../../utils/types"
 import { teacherOptional, validationResult } from "../../utils/validators"
 import { isId, checkBody } from "../../utils/helpers"
 

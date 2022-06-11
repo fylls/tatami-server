@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { Course, ICourse } from "../../models/_"
+import { Course, ICourse } from "../../utils/types"
 import { courseMandatory, validationResult } from "../../utils/validators"
 
 // express router

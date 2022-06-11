@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { Teacher, ITeacher } from "../../models/_"
+import { Teacher, ITeacher } from "../../utils/types"
 import { teacherMandatory, validationResult } from "../../utils/validators"
 
 // express router

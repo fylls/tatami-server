@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express"
-import { Lesson } from "../../models/_"
+import { Lesson } from "../../utils/types"
+import { isId } from "../../utils/helpers"
 
 // express router
 const router = Router()
@@ -21,6 +22,7 @@ router.delete("/:lessonID", async (req: Request, res: Response) => {
 		// get parameter
 		const lessonID = req.params.lessonID
 		if (!lessonID) return res.status(400).json("lessonID is missing")
+		if (!isId(lessonID)) return res.status(400).json("invalid id")
 
 		// check if Lesson exists
 		const lesson = await Lesson.findById(lessonID)

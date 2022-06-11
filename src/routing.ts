@@ -7,28 +7,28 @@ import checkReferralRoute from "./routes/affiliates/checkCode"
 import deleteAffiliateRoute from "./routes/affiliates/delete"
 import GetAllAffiliatesRoute from "./routes/affiliates/getAll"
 import GetDiscountRoute from "./routes/affiliates/getDiscount"
-import GetOneAffiliateRoute from "./routes/affiliates/getOne"
+import GetOneAffiliateRoute from "./routes/affiliates/getById"
 import updateAffiliateRoute from "./routes/affiliates/update"
 
 // courses routes
 import addCourseRoute from "./routes/courses/add"
 import deleteCourseRoute from "./routes/courses/delete"
 import getAllCoursesRoute from "./routes/courses/getAll"
-import getOneCoursesRoute from "./routes/courses/getOne"
+import getOneCoursesRoute from "./routes/courses/getById"
 import updateCourseRoute from "./routes/courses/update"
 
 // lessons routes
 import addLessonRoute from "./routes/lessons/add"
 import deleteLessonRoute from "./routes/lessons/delete"
 import getAllLessonsRoute from "./routes/lessons/getAll"
-import getOneLessonRoute from "./routes/lessons/getOne"
+import getOneLessonRoute from "./routes/lessons/getById"
 import updateLessonRoute from "./routes/lessons/update"
 
 // teachers routes
 import addTeacherRoute from "./routes/teachers/add"
 import deleteTeacherRoute from "./routes/teachers/delete"
 import getAllTeachersRoute from "./routes/teachers/getAll"
-import getOneTeacherRoute from "./routes/teachers/getOne"
+import getOneTeacherRoute from "./routes/teachers/getById"
 import updateTeacherRoute from "./routes/teachers/update"
 
 // students routes

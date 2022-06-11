@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { Affiliate, IAffiliate } from "../../models/_"
+import { Affiliate, IAffiliate } from "../../utils/types"
 import { affiliateMandatory, validationResult } from "../../utils/validators"
 
 // express router

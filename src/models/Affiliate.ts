@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose"
-import { IAffiliate } from "./_"
+import { IAffiliate } from "../utils/types"
 import { AFFILIATE_ARRAY } from "../utils/constants"
 
 const ObjectId = Schema.Types.ObjectId

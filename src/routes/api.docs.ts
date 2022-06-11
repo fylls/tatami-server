@@ -1,7 +1,7 @@
 // this file helps frontend developers use and understand the APIs
 import axios from "axios"
 import { NODE_ENV } from "../utils/constants"
-import { ICourse, IAffiliate } from "../models/_"
+import { ICourse, IAffiliate } from "../utils/types"
 
 // TODO TO UPDATE
 

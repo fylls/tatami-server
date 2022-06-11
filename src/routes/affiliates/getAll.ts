@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { Affiliate, IAffiliate } from "../../models/_"
+import { Affiliate, IAffiliate } from "../../utils/types"
 
 // express router
 const router = Router()
@@ -10,7 +10,6 @@ export default router
  * @route       GET api.tatami.gg/affiliates
  * @desc        return array with all the affiliates
  * @access      public
- * @params      :refCode
  *
  */
 

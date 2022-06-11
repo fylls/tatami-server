@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express"
-import { Course } from "../../models/_"
+import { Course } from "../../utils/types"
+import { isId } from "../../utils/helpers"
 
 // express router
 const router = Router()
@@ -8,9 +9,9 @@ export default router
 /**
  *
  * @route       GET api.tatami.gg/courses/:courseID
- * @desc        return course object given specific ID
+ * @desc        return course object given ID
  * @access      public
- * @params      courseID
+ * @params      :courseID
  *
  */
 
@@ -18,14 +19,11 @@ router.get("/:courseID", async (req: Request, res: Response) => {
 	try {
 		// get parameter
 		const courseID = req.params.courseID
-
-		// return error if missing
 		if (!courseID) return res.status(400).json("courseID is missing")
+		if (!isId(courseID)) return res.status(400).json("invalid id")
 
 		// search for specific course by ID
 		const course = await Course.findById(courseID)
-
-		// return error if  not found
 		if (!course) return res.status(400).json("courses not found")
 
 		// return asked course

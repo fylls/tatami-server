@@ -1,6 +1,6 @@
 // dependencies
 import { Request, Response, Router } from "express"
-import { Affiliate, IAffiliate } from "../../models/_"
+import { Affiliate, IAffiliate } from "../../utils/types"
 import { affiliateOptional, validationResult } from "../../utils/validators"
 import { isId, checkBody } from "../../utils/helpers"
 

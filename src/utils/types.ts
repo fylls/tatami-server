@@ -1,9 +1,10 @@
+// dependencies
 import mongoose from "mongoose"
-import Lesson from "./Lesson"
-import Course from "./Course"
-import Affiliate from "./Affiliate"
-import Student from "./Student"
-import Teacher from "./Teacher"
+import Lesson from "../models/Lesson"
+import Course from "../models/Course"
+import Affiliate from "../models/Affiliate"
+import Student from "../models/Student"
+import Teacher from "../models/Teacher"
 
 const ObjectId = mongoose.Types.ObjectId
 

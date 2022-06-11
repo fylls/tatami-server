@@ -1,6 +1,6 @@
 // dependencies
 import { Request, Response, Router } from "express"
-import { Course, ICourse } from "../../models/_"
+import { Course, ICourse } from "../../utils/types"
 import { courseOptional, validationResult } from "../../utils/validators"
 import { isId, checkBody } from "../../utils/helpers"
 

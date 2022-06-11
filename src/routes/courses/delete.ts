@@ -1,9 +1,13 @@
 import { Request, Response, Router } from "express"
-import { Course } from "../../models/_"
+import { Course } from "../../utils/types"
+import { isId } from "../../utils/helpers"
 
 // express router
 const router = Router()
 export default router
+
+// TODO implement private route
+// please don't use this route, by design we prefer to keep the influencer inactive
 
 /**
  *
@@ -14,14 +18,12 @@ export default router
  *
  */
 
-// TODO implement private route
-// please don't use this route, by design we prefer to keep the influencer inactive
-
 router.delete("/:courseID", async (req: Request, res: Response) => {
 	try {
 		// get parameter
 		const courseID = req.params.courseID
 		if (!courseID) return res.status(400).json("courseID is missing")
+		if (!isId(courseID)) return res.status(400).json("invalid id")
 
 		// check if course exists
 		const course = await Course.findById(courseID)

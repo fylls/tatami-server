@@ -13,3 +13,7 @@
 7) perfeziona una API e copiala in tutte le altre (definisci flow per GET, PUT, DELETE)
 
 8) mettere try a tutte le routes
+
+9) check if isiD è presente in tutti gli update o delete getOne
+
+10) check if bodyCheck è presente in tutti gli update
