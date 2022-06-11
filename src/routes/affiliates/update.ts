@@ -9,7 +9,6 @@ const router = Router()
 export default router
 
 // TODO implement a way to make this route private
-// TODO questa è la route trattata
 
 /**
  *

@@ -3,7 +3,7 @@ import { Application } from "express"
 
 // affiliates routes
 import addAffiliateRoute from "./routes/affiliates/add"
-import checkReferralRoute from "./routes/affiliates/checkReferral"
+import checkReferralRoute from "./routes/affiliates/checkCode"
 import deleteAffiliateRoute from "./routes/affiliates/delete"
 import GetAllAffiliatesRoute from "./routes/affiliates/getAll"
 import GetDiscountRoute from "./routes/affiliates/getDiscount"

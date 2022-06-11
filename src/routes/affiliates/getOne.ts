@@ -8,7 +8,7 @@ export default router
 /**
  *
  * @route       GET api.tatami.gg/affiliates/:username
- * @desc        return affiliate object given referral code
+ * @desc        return affiliate object given username
  * @access      public
  * @params      username
  *
@@ -18,14 +18,10 @@ router.get("/:username", async (req: Request, res: Response) => {
 	try {
 		// get parameter
 		const username = req.params.username
-
-		// return error if missing
 		if (!username) return res.status(400).json("username is missing")
 
-		// search for specific course by ID
+		// search for specific course by username
 		const affiliate = await Affiliate.findOne({ username })
-
-		// return error if  not found
 		if (!affiliate) return res.status(400).json("affiliate not found")
 
 		// return asked course

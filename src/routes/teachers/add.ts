@@ -1,7 +1,6 @@
 import { Request, Response, Router } from "express"
 import { Teacher, ITeacher } from "../../models/_"
 import { teacherMandatory, validationResult } from "../../utils/validators"
-import { checkBody } from "../../utils/helpers"
 
 // express router
 const router = Router()
@@ -23,7 +22,6 @@ router.post("", teacherMandatory, async (req: Request, res: Response) => {
 	// check errors in body
 	const errors = validationResult(req)
 	if (!errors.isEmpty()) return res.status(400).json(errors.array())
-	if (checkBody(req.body)) return res.status(400).json("empty body")
 
 	// destructure body object
 	const {

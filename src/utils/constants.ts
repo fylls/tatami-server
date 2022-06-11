@@ -53,13 +53,10 @@ const STRIPE_KEY = NODE_ENV === "live" ? LIVE_KEY : TEST_KEY
 
 const MAX_STUDENTS = 20
 
-const BASE_COACH = stringToId("62851068aea6ae0fc120f0c9") //TODO to remove
-
 const DB_NAME = getDbName(MONGO_URI)
 
 export {
 	MAX_STUDENTS,
-	BASE_COACH,
 	GAME_ARRAY,
 	AFFILIATE_ARRAY,
 	LANGUAGE_ARRAY,

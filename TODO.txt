@@ -11,3 +11,5 @@
 6) compartimentalizza utils in functions, constants, validators, modelli (_)
 
 7) perfeziona una API e copiala in tutte le altre (definisci flow per GET, PUT, DELETE)
+
+8) mettere try a tutte le routes

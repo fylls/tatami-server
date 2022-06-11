@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express"
 import { Affiliate } from "../../models/_"
-
+import { isId } from "../../utils/helpers"
 // express router
 const router = Router()
 export default router
@@ -10,27 +10,29 @@ export default router
 
 /**
  *
- * @route   api.tatami.gg/affiliates/:refCode
- * @desc    delete affiliate by code
- * @access  private
- * @params  :refCode
+ * @route       DELETE api.tatami.gg/affiliates/:affiliateID
+ * @desc        delete affiliate by ID
+ * @access      private
+ * @params      :affiliateID
  *
  */
 
-router.delete("/:refCode", async (req: Request, res: Response) => {
+router.delete("/:affiliateID", async (req: Request, res: Response) => {
 	try {
 		// get parameter
-		const refCode = req.params.refCode
-		if (!refCode) return res.status(400).json("refCode is missing")
+		const affiliateID = req.params.affiliateID
+		if (!affiliateID) return res.status(400).json("affiliateID is missing")
+		if (!isId(affiliateID)) return res.status(400).json("invalid id")
 
 		// check if affiliate exists
-		const affiliate = await Affiliate.findOne({ code: refCode })
+		const affiliate = await Affiliate.findById(affiliateID)
 		if (!affiliate) return res.status(404).json("affiliate not found")
 
 		// remove affiliate
 		await affiliate.remove()
 		return res.json("affiliate removed")
 	} catch (error: any) {
+		console.log(error)
 		return res.status(500).send(error.message)
 	}
 })

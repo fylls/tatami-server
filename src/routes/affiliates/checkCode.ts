@@ -7,7 +7,7 @@ export default router
 
 /**
  *
- * @route       GET api.tatami.gg/referrals/checkCode/:refCode
+ * @route       GET api.tatami.gg/affiliates/checkCode/:refCode
  * @desc        if the referral code is still valid it returns true, otherwise it returns false
  * @access      public
  * @params      refCode
@@ -16,16 +16,11 @@ export default router
 
 router.get("/checkCode/:refCode", async (req: Request, res: Response) => {
 	try {
-		// extract parameters
 		const code = req.params.refCode
-
-		// check if req.body is present
 		if (!code) return res.status(400).json("referral code is missing")
-
-		// implementation on /utils
 		return res.json(await checkReferral(code))
 	} catch (error: any) {
-		console.error(error.message)
+		console.error(error)
 		return res.status(500).send(error.message)
 	}
 })

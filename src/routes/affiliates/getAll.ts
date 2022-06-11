@@ -10,7 +10,7 @@ export default router
  * @route       GET api.tatami.gg/affiliates
  * @desc        return array with all the affiliates
  * @access      public
- * @params      refCode
+ * @params      :refCode
  *
  */
 

@@ -1,8 +1,8 @@
 // dependencies
 import express, { Application, json } from "express"
 import { implementRoutes } from "./routing"
-import { connectDB } from "./db"
 import { PORT } from "./utils/constants"
+import { connectDB } from "./db"
 import cors from "cors"
 
 // server configs
@@ -24,5 +24,5 @@ const startServer = async () => {
 // starting logic
 startServer()
 
-// export
+// exporting
 export { app }
